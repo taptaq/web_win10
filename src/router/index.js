@@ -34,7 +34,13 @@ const routes = [{
   {
     path: '/desk',
     name: 'desk',
-    component: () => import('@/views/Desk')
+    component: () => import('@/views/Desk'),
+  },
+
+  {
+    path: '/closeSystem',
+    name: 'closeSys',
+    component: () => import('@/views/CloseSys')
   }
 ]
 

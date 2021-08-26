@@ -99,45 +99,45 @@ export default {
 /*日期部分 */
 .lock_clock_wrap {
   position: absolute;
-  width: 450px;
-  height: 220px;
+  width: 28.125rem;
+  height: 13.75rem;
   left: 0;
-  bottom: 50px;
+  bottom: 3.125rem;
   display: flex;
   flex-direction: column;
   color: #ffffff;
-  margin-left: 25px;
+  margin-left: 1.5625rem;
   transition: transform 0.3s ease;
 }
 .lock_clock_wrap .lock_time {
   display: flex;
-  font-size: 100px;
+  font-size: 6.25rem;
   width: 100%;
-  height: 140px;
-  padding-top: 20px;
+  height: 8.75rem;
+  padding-top: 1.25rem;
   box-sizing: border-box;
   font-weight: 300;
 }
 .lock_clock_wrap .lock_date {
   display: flex;
   width: 100%;
-  height: 70px;
-  font-size: 45px;
+  height: 4.375rem;
+  font-size: 2.8125rem;
 }
 
 /*菜单栏 */
 .lock_menu {
   position: absolute;
-  right: 10px;
-  bottom: 8px;
-  width: 10%;
+  right: .625rem;
+  bottom: .5rem;
+  width: 5rem;
   display: flex;
   justify-content: space-evenly;
   cursor: pointer;
 }
 .lock_menu i {
   color: #fff;
-  font-size: 25px;
-  margin: 0 -18px;
+  font-size: 1.5625rem;
+  margin: 0 0.125rem;
 }
 </style>

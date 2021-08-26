@@ -47,7 +47,7 @@
           <span>设置</span>
         </div>
         <div class="startMenu_left_item stat_menu_power">
-          <i class="icon-guanji iconfont"></i>
+          <router-link tag="i" to="/closeSystem" class="icon-guanji iconfont"></router-link>
           <span>电源</span>
         </div>
       </div>
@@ -77,6 +77,7 @@ export default {
       timer: null,
       showWindow: false, //window菜单栏显示
       showLeftMenu: false, //window菜单栏的左侧显示
+      showClose: false,
     };
   },
   mounted() {
@@ -165,21 +166,21 @@ export default {
   justify-content: space-between;
   align-items: center;
   color: #fff;
-  padding: 0 10px;
+  padding: 0 .625rem;
 }
 
 .footer i {
-  font-size: 20px;
+  font-size: 1.25rem;
   display: inline-block;
 }
 
 .footer .left {
-  width: 14%;
+  width: 9.875rem;
 }
 
 .footer .left i {
-  margin: 0 5px;
-  padding: 2px 10px;
+  margin: 0 .3125rem;
+  padding: .125rem .625rem;
 }
 
 .footer .right {
@@ -188,19 +189,19 @@ export default {
 
 .footer .right div {
   display: inline-block;
-  font-size: 12px;
+  font-size: .75rem;
   text-align: center;
   cursor: default;
 }
 
 .footer .right i {
   position: relative;
-  top: -5px;
+  top: -0.3125rem;
 }
 
 .footer .right i,
 .footer .right div {
-  padding: 2px 8px;
+  padding: .125rem .5rem;
 }
 
 .footer .left i:hover,
@@ -216,7 +217,7 @@ export default {
 
 /*windows菜单栏 */
 #startMenu_wrap {
-  width: 330px;
+  width: 20.625rem;
   height: 0;
   background: rgb(31, 31, 31);
   position: absolute;
@@ -227,7 +228,7 @@ export default {
   cursor: default;
 }
 #startMenu_wrap .startMenu_left {
-  width: 48px;
+  width: 3rem;
   height: 100%;
   display: flex;
   position: absolute;
@@ -240,22 +241,22 @@ export default {
   z-index: 130;
   transition: width 0.3s linear;
   color: #fff;
-  padding-bottom: 45px;
+  padding-bottom: 2.8125rem;
   background: #000;
 }
 
 #startMenu_wrap .startMenu_left .startMenu_left_item {
-  width: 250px;
-  height: 48px;
+  width: 15.625rem;
+  height: 3rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
-  padding-left: 14px;
+  padding-left: .875rem;
 }
 
 #startMenu_wrap .startMenu_left .startMenu_left_item i {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 #startMenu_wrap .startMenu_left .startMenu_left_item:hover {
@@ -266,68 +267,68 @@ export default {
   left: 0;
   top: 0;
   justify-self: start;
-  margin-top: 5px;
+  margin-top: .3125rem;
 }
 
 #startMenu_wrap .startMenu_left .startMenu_left_item img {
-  width: 19px;
-  height: 19px;
+  width: 1.1875rem;
+  height: 1.1875rem;
 }
 
 #startMenu_wrap .startMenu_left .startMenu_left_item span {
   color: #ffffff;
-  font-size: 16px;
-  margin-left: 20px;
+  font-size: 1rem;
+  margin-left: 1.25rem;
 }
 
 #startMenu_wrap .startMenu_right {
-  width: 265px;
+  width: 16.5625rem;
   height: 100%;
   position: absolute;
   left: 0;
   top: 0;
-  margin-left: 65px;
+  margin-left: 4.0625rem;
   z-index: 120;
   display: flex;
   flex-direction: column;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_top {
   width: 96%;
-  height: 35px;
-  margin: 5px 0 0 0;
+  height: 2.1875rem;
+  margin: .3125rem 0 0 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_top span {
   color: #ffffff;
-  font-size: 14px;
+  font-size: .875rem;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_content {
   width: 98%;
-  height: 600px;
-  margin-top: 10px;
+  height: 37.5rem;
+  margin-top: .625rem;
   overflow: scroll;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_content::-webkit-scrollbar {
-  width: 3px;
+  width: .1875rem;
   height: 100%;
 }
 #startMenu_wrap
   .startMenu_right
   .startMenu_right_content::-webkit-scrollbar-thumb {
-  width: 3px;
+  width: .1875rem;
   background: #0086b3;
-  border-radius: 3px;
+  border-radius: .1875rem;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_content .startMenu_app_item {
   width: 96%;
-  height: 35px;
+  height: 2.1875rem;
   float: left;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: .625rem;
 }
 #startMenu_wrap
   .startMenu_right
@@ -341,9 +342,9 @@ export default {
   .startMenu_right_content
   .startMenu_app_item
   .app_item_img_wrap {
-  width: 35px;
-  height: 35px;
-  margin-right: 10px;
+  width: 2.1875rem;
+  height: 2.1875rem;
+  margin-right: .625rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -354,8 +355,8 @@ export default {
   .startMenu_app_item
   .app_item_img_wrap
   img {
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
 }
 #startMenu_wrap
   .startMenu_right

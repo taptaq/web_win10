@@ -7,36 +7,15 @@
   >
     <!--桌面壁纸-->
     <div class="desk_bg">
-      <img src="@/assets/deskbg.jpg" alt="桌面背景" />
+      <img :src="$store.state.deskBg.curBg" alt="桌面背景" />
     </div>
 
-    <div class="app_body">
-      <ul class="app_wrap" ref="app">
-        <li class="app">
-          <img src="@/assets/app1.png" alt />
-          <p>文件管理</p>
-        </li>
-
-        <li class="app">
-          <img src="@/assets/app2.png" alt />
-          <p>我的电脑</p>
-        </li>
-
-        <li class="app">
-          <img src="@/assets/app3.png" alt />
-          <p>记事本</p>
-        </li>
-
-        <li class="app">
-          <img src="@/assets/cloudmusic.png" alt />
-          <p>网易云音乐</p>
-        </li>
-
-        <li class="app">
-          <img src="@/assets/wechat.png" alt />
-          <p>微信</p>
-        </li>
-      </ul>
+    <!--存放app-->
+    <div class="app_body" ref="appBody">
+      <div v-for="item in appData" :key="item.id" class="app" :data-appId="item.id">
+        <img :src="item.img" alt :data-appId="item.id" />
+        <p :data-appId="item.id">{{item.name}}</p>
+      </div>
     </div>
 
     <!--右键菜单功能栏-->
@@ -49,40 +28,101 @@
         <li>查看</li>
         <li>排序方式</li>
         <li>刷新</li>
+        <li>个性化</li>
       </ul>
     </div>
 
-   
-
     <!--桌面尾部-->
     <DeskFooter />
+
+    <!--应用打开后的位置-->
+    <div class="app_open_wrap" ref="app_wrap">
+      <ChangeDesk />
+    </div>
   </div>
 </template>
 
 <script>
 import DeskFooter from "@/components/DeskFooter";
+import ChangeDesk from "@/views/app/ChangeDesk";
 export default {
   name: "desk",
   data() {
-    return { 
-      showRight: false,   //鼠标右键菜单栏显示
-      
+    return {
+      showRight: false, //鼠标右键菜单栏显示
+      curApp: "", //当前拖拽的app
+      appData: [],
+      showAppWrap: false,
     };
   },
   components: {
     DeskFooter,
+    ChangeDesk,
   },
+
   mounted() {
-    //   为每个应用添加动画
-    this.$refs.app.children.forEach((item) => {
-      item.addEventListener("mouseenter", (e) => {
-        e.target.classList.add("animate__animated", "animate__jello");
-        setTimeout(() => {
-          e.target.classList.remove("animate__animated", "animate__jello");
-        }, 500);
+    this.curBg=localStorage.getItem('deskBg');
+
+    // 请求app应用数据
+    this.$axios
+      .get("https://qc39xm.fn.thelarkcloud.com/appData")
+      .then((res) => {
+        if (res.status === 200) {
+          this.appData = res.data.appData;
+        }
+
+        // 数据请求成功后继续对应用操作
+        // 为每个应用添加动画
+        this.$nextTick(() => {
+          let apps = this.$refs.appBody.children;
+          apps.forEach((item) => {
+            // console.log(item);
+            item.addEventListener("mouseenter", (e) => {
+              e.target.classList.add("animate__animated", "animate__jello");
+              setTimeout(() => {
+                e.target.classList.remove(
+                  "animate__animated",
+                  "animate__jello"
+                );
+              }, 500);
+            });
+          });
+
+          // 拖拽app的拖拽
+          // 为每个应用添加拖拽事件
+          apps.forEach((item) => {
+            let that = this;
+            item.setAttribute("draggable", true);
+            item.ondragstart = function () {
+              that.curApp = this;
+            };
+          });
+
+          // 为存放app的容器添加相关的鼠标事件
+          this.$refs.appBody.addEventListener("dragover", (e) => {
+            e.preventDefault();
+          });
+          this.$refs.appBody.addEventListener("drop", (e) => {
+            this.curApp.style.position = "absolute";
+            this.curApp.style.left =
+              e.pageX - this.curApp.offsetWidth / 2 + "px";
+            this.curApp.style.top =
+              e.pageY - this.curApp.offsetHeight / 2 + "px";
+          });
+
+          // 为每个应用添加双击事件
+          apps.forEach((item) => {
+            item.addEventListener("dblclick", (e) => {
+              let appId = e.target.dataset.appid;
+              if (appId === "3") {
+                this.$store.commit("monitorApp/changDeskState", false);
+              }
+            });
+          });
+        });
       });
-    });
   },
+
   methods: {
     showRightMenu(e) {
       let x = e.pageX;
@@ -102,7 +142,6 @@ export default {
         this.showRight = true;
       }
     },
-
   },
 };
 </script>
@@ -139,49 +178,42 @@ export default {
 .app_body {
   width: 100%;
   height: 93%;
-  padding: 10px;
-  padding-top: 5px;
-  padding-bottom: 20px;
+  padding: .625rem;
+  padding-top: .3125rem;
+  padding-bottom: 1.25rem;
   display: flex;
-  font-size: 12px;
+  font-size: .75rem;
   color: #fff;
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   z-index: -1;
   position: relative;
 }
 
-.app_body .app_wrap {
-  margin-right: -165px;
-  height: 105%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
 .app_body .app {
-  width: 80px;
-  height: 70px;
-  padding: 5px;
-  border-radius: 5px;
+  width: 5rem;
+  height: 4.375rem;
+  padding: .3125rem;
+  border-radius: .3125rem;
   transition: all 0.3s;
-  margin-top: 10px;
+  margin-top: .625rem;
   cursor: default;
 }
 
 .app_body .app:hover {
   background: rgba(156, 148, 148, 0.5);
-  box-shadow: inset 0 0 3px #fff;
+  box-shadow: inset 0 0 .1875rem #fff;
 }
 
 .app_body .app img {
-  width: 55%;
-  height: 55%;
+  width: 2.375rem;
+  height: 2.125rem;
 }
 
 .app_body .app p {
-  margin-top: 10px;
+  margin-top: .625rem;
 }
 
 /*右键菜单栏 */
@@ -194,10 +226,12 @@ export default {
   background: rgb(238, 231, 231);
   text-align: left;
   z-index: 1000;
+  padding: .3125rem;
+  border-radius: 10px;
 }
 
 .rightMenu ul li {
-  padding: 5px 10px;
+  padding: .3125rem .625rem;
   border-bottom: 1px solid #000;
   cursor: default;
 }
@@ -205,6 +239,5 @@ export default {
 .rightMenu ul li:hover {
   background: #ccc;
 }
-
 
 </style>

@@ -54,11 +54,11 @@ export default {
 }
 
 .login_wrap .avatar {
-  width: 150px;
-  height: 150px;
+  width: 9.375rem;
+  height: 9.375rem;
   border: 1px solid #fff;
   border-radius: 50%;
-  margin: 30px 0;
+  margin: 1.875rem 0;
   overflow: hidden;
   background: #fff;
 }
@@ -70,51 +70,51 @@ export default {
 
 .login_wrap .username {
   color: #fff;
-  margin-top: -5px;
-  margin-bottom: 15px;
-  font-size: 20px;
+  margin-top: -0.3125rem;
+  margin-bottom: .9375rem;
+  font-size: 1.25rem;
 }
 
 .login_wrap .enter_password {
   position: relative;
-  margin-left: -22px;
+  margin-left: -1.375rem;
 }
 
 .login_wrap .password {
-  width: 200px;
-  padding: 10px;
+  width: 12.5rem;
+  padding: .625rem;
   outline: none;
   border: none;
-  padding-right: 20px;
+  padding-right: 1.25rem;
 }
 
 .login_wrap .enter {
   position: absolute;
-  right: -35px;
+  right: -2.1875rem;
   bottom: 0;
   color: #fff;
   background: rgb(87, 78, 78);
-  padding: 0 5px;
+  padding: 0 .3125rem;
   cursor: pointer;
 }
 
 .login_wrap .enter .icon-forward {
-  font-size: 25px;
+  font-size: 1.5625rem;
 }
 
 /*菜单栏 */
 .login_menu {
   position: absolute;
-  right: 10px;
-  bottom: 8px;
-  width: 10%;
+  right: 2.5rem;
+  bottom: .5rem;
+  width: 5rem;
   display: flex;
   justify-content: space-evenly;
   cursor: pointer;
 }
 .login_menu i {
   color: #fff;
-  font-size: 25px;
-  margin: 0 -5px;
+  font-size: 1.5625rem;
+  margin:0 0.5rem;
 }
 </style>
