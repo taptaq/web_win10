@@ -1,49 +1,49 @@
 <template>
-  <div class="changDesk_body" v-show="!$store.state.monitorApp.changeDeskAppClose">
-    <div class="header" @mousedown="move">
-      <img src="@/assets/changeDeskbg.png" alt />
-      <span>主题壁纸</span>
-      <div class="closeSetting">
-        <div class="minimize">
-          <i class="icon-zuixiaohua iconfont"></i>
-        </div>
-        <div class="maxsize">
-          <i class="icon-zuidahua iconfont"></i>
-        </div>
-        <div class="close">
-          <i class="icon-guanbi iconfont" @click="closeDeskBg"></i>
-        </div>
-      </div>
-    </div>
-
-    <div class="content_wrapper">
-      <div class="curBg">
-        <span>当前壁纸</span>
-        <img :src="$store.state.deskBg.curBg" alt />
-      </div>
-
-      <div class="selectBg">
-        <span>可选壁纸</span>
-        <div class="select_bg_wrap">
-          <div class="img" v-for="item in selectBg" :key="item.id" @click="changeDeskBg">
-            <img :src="item.src" alt />
+    <div class="changDesk_body" v-if="!$store.state.monitorApp.changeDeskAppClose" @mousedown='move'>
+      <div class="header">
+        <img src="@/assets/changeDeskbg.png" alt />
+        <span>主题壁纸</span>
+        <div class="closeSetting">
+          <div class="minimize">
+            <i class="icon-zuixiaohua iconfont"></i>
           </div>
+          <div class="maxsize">
+            <i class="icon-zuidahua iconfont"></i>
+          </div>
+          <div class="close">
+            <i class="icon-guanbi iconfont" @click="closeDeskBg"></i>
+          </div>
+        </div>
+      </div>
 
-          <button class="localsele btn" >
-            <input type="file" @change="selectLocal"/>
-            <span class="localWrite">从本地选择</span>
-          </button>
+      <div class="content_wrapper">
+        <div class="curBg">
+          <span>当前壁纸</span>
+          <img :src="$store.state.deskBg.curBg" alt />
+        </div>
 
-          <el-button round class="btn">
-            <a
-              target="_blank"
-              href="https://image.baidu.com/search/index?ct=&z=&tn=baiduimage&ipn=r&word=%E5%A3%81%E7%BA%B8&pn=0&istype=2&ie=utf-8&oe=utf-8&cl=&lm=-1&st=-1&fr=&fmq=1526269427171_R&ic=0&se=&sme=&width=1680&height=1050&face=0"
-            >前往图片库</a>
-          </el-button>
+        <div class="selectBg">
+          <span>可选壁纸</span>
+          <div class="select_bg_wrap">
+            <div class="img" v-for="item in selectBg" :key="item.id" @click="changeDeskBg">
+              <img :src="item.src" alt />
+            </div>
+
+            <button class="localsele btn">
+              <input type="file" @change="selectLocal" />
+              <span class="localWrite">从本地选择</span>
+            </button>
+
+            <el-button round class="btn">
+              <a
+                target="_blank"
+                href="https://image.baidu.com/search/index?ct=&z=&tn=baiduimage&ipn=r&word=%E5%A3%81%E7%BA%B8&pn=0&istype=2&ie=utf-8&oe=utf-8&cl=&lm=-1&st=-1&fr=&fmq=1526269427171_R&ic=0&se=&sme=&width=1680&height=1050&face=0"
+              >前往图片库</a>
+            </el-button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -73,11 +73,11 @@ export default {
     //   关闭主题壁纸应用
     closeDeskBg() {
       this.$store.commit("monitorApp/changDeskState", true);
+      this.$store.commit("opendApp/deleOpendApp", '3');
     },
 
     // 应用的拖拽
     move(e) {
-      console.log(e.target);
       let odiv = e.target.parentNode;
       if (e.target.className === "header") {
         let disX = e.clientX - odiv.offsetLeft;
@@ -92,8 +92,8 @@ export default {
             left = odiv.offsetWidth / 2;
           } else if (top >= document.body.offsetHeight - 70) {
             top = document.body.offsetHeight - 70;
-          } else if (left >= document.body.offsetWidth - odiv.offsetWidth / 2) {
-            left = document.body.offsetWidth - odiv.offsetWidth / 2;
+          } else if (left >= document.body.offsetWidth - odiv.offsetWidth/2) {
+            left = document.body.offsetWidth - odiv.offsetWidth/2;
           }
 
           odiv.style.left = left + "px";
@@ -109,11 +109,11 @@ export default {
 
     // 选择本地壁纸
     selectLocal(e) {
-       let file = e.target.files[0];
+      let file = e.target.files[0];
       let fr = new FileReader();
       fr.readAsDataURL(file); //对图片进行base64转码
       fr.onload = (e) => {
-        localStorage.setItem('deskBg',e.target.result);
+        localStorage.setItem("deskBg", e.target.result);
         this.$store.commit("deskBg/changeDesk", e.target.result);
       };
     },
@@ -130,9 +130,9 @@ export default {
   width: 31.25rem;
   height: 34.375rem;
   background: #fff;
-  border-radius: .3125rem;
-  box-shadow: 0 0 .625rem #ccc;
-  padding: .3125rem;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0 0.625rem #ccc;
+  padding: 0.3125rem;
   z-index: 1000;
 }
 
@@ -143,8 +143,8 @@ export default {
 
 .changDesk_body .header span {
   position: relative;
-  top: .125rem;
-  left: .3125rem;
+  top: 0.125rem;
+  left: 0.3125rem;
   font-weight: 700;
 }
 
@@ -165,7 +165,7 @@ export default {
   display: inline-block;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.3);
-  margin-left: .3125rem;
+  margin-left: 0.3125rem;
   text-align: center;
   line-height: 1.125rem;
   cursor: pointer;
@@ -176,7 +176,7 @@ export default {
 }
 
 .changDesk_body .header .closeSetting div i {
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: #fff;
 }
 
@@ -186,7 +186,7 @@ export default {
   height: 95%;
   overflow: auto;
   background: rgba(0, 0, 0, 0.8);
-  padding: .3125rem;
+  padding: 0.3125rem;
 }
 
 .content_wrapper::-webkit-scrollbar {
@@ -198,13 +198,13 @@ export default {
   height: 50%;
   color: #fff;
   padding-bottom: 8%;
-  border-bottom: .0625rem solid rgb(156, 147, 147);
+  border-bottom: 0.0625rem solid rgb(156, 147, 147);
 }
 
 .content_wrapper .curBg span {
   position: relative;
-  top: .125rem;
-  left: .3125rem;
+  top: 0.125rem;
+  left: 0.3125rem;
 }
 
 .content_wrapper .curBg img {
@@ -218,35 +218,35 @@ export default {
   width: 100%;
   height: 50%;
   color: #fff;
-  padding-top: .625rem;
+  padding-top: 0.625rem;
 }
 
 .content_wrapper .selectBg span {
   position: relative;
-  top: .125rem;
-  left: .3125rem;
+  top: 0.125rem;
+  left: 0.3125rem;
 }
 
 .content_wrapper .selectBg .select_bg_wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: .3125rem;
+  margin-top: 0.3125rem;
 }
 
 .content_wrapper .selectBg .select_bg_wrap .img {
   width: 40%;
-  margin: .3125rem .625rem;
+  margin: 0.3125rem 0.625rem;
   transition: all 0.2s;
 }
 
 .content_wrapper .selectBg .select_bg_wrap .img:hover {
-  outline: .125rem solid rgb(223, 186, 186);
+  outline: 0.125rem solid rgb(223, 186, 186);
   transform: scale(1.1);
 }
 
 .content_wrapper .selectBg .select_bg_wrap .btn {
-  margin: .625rem;
+  margin: 0.625rem;
   width: 8.9375rem;
   height: 2.5rem;
 }
@@ -262,8 +262,8 @@ export default {
   outline: 0;
   transition: 0.1s;
   font-weight: 500;
-  padding: .75rem 1.25rem;
-  font-size: .875rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
   position: relative;
 }
 

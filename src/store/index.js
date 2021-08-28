@@ -5,10 +5,12 @@ Vue.use(Vuex);
 
 import deskBg from './deskBg'
 import monitorApp from './monitorApp'
+import opendApp from './opendApp'
 
 export default new Vuex.Store({
   modules:{
     deskBg,
-    monitorApp
+    monitorApp,
+    opendApp
   }
 })

@@ -33,11 +33,12 @@
     </div>
 
     <!--桌面尾部-->
-    <DeskFooter />
+    <DeskFooter ref="deskFooter" />
 
     <!--应用打开后的位置-->
-    <div class="app_open_wrap" ref="app_wrap">
-      <ChangeDesk />
+    <div class="app_open_wrap">
+      <ChangeDesk/>
+      <CloudMusic/>
     </div>
   </div>
 </template>
@@ -45,6 +46,7 @@
 <script>
 import DeskFooter from "@/components/DeskFooter";
 import ChangeDesk from "@/views/app/ChangeDesk";
+import CloudMusic from "@/views/app/CloudMusic"
 export default {
   name: "desk",
   data() {
@@ -58,11 +60,10 @@ export default {
   components: {
     DeskFooter,
     ChangeDesk,
+    CloudMusic
   },
 
   mounted() {
-    this.curBg=localStorage.getItem('deskBg');
-
     // 请求app应用数据
     this.$axios
       .get("https://qc39xm.fn.thelarkcloud.com/appData")
@@ -113,15 +114,26 @@ export default {
           // 为每个应用添加双击事件
           apps.forEach((item) => {
             item.addEventListener("dblclick", (e) => {
-              let appId = e.target.dataset.appid;
-              if (appId === "3") {
-                this.$store.commit("monitorApp/changDeskState", false);
+              if (e.target.tagName === "IMG") {
+                let appId = e.target.dataset.appid;
+                if (appId === '3') {
+                  this.$store.commit("monitorApp/changDeskState", false);
+                  let obj={id:appId,src:e.target.src};
+                  this.$store.commit("opendApp/addOpendApp", obj);
+                }
+
+                if (appId === "5") {
+                  // this.$store.commit("monitorApp/changDeskState", false);
+                  let obj={id:appId,src:e.target.src};
+                  this.$store.commit("opendApp/addOpendApp", obj);
+                }
               }
             });
           });
         });
       });
   },
+
 
   methods: {
     showRightMenu(e) {
@@ -178,11 +190,11 @@ export default {
 .app_body {
   width: 100%;
   height: 93%;
-  padding: .625rem;
-  padding-top: .3125rem;
+  padding: 0.625rem;
+  padding-top: 0.3125rem;
   padding-bottom: 1.25rem;
   display: flex;
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: #fff;
   text-align: center;
   display: flex;
@@ -195,16 +207,16 @@ export default {
 .app_body .app {
   width: 5rem;
   height: 4.375rem;
-  padding: .3125rem;
-  border-radius: .3125rem;
+  padding: 0.3125rem;
+  border-radius: 0.3125rem;
   transition: all 0.3s;
-  margin-top: .625rem;
+  margin-top: 0.625rem;
   cursor: default;
 }
 
 .app_body .app:hover {
   background: rgba(156, 148, 148, 0.5);
-  box-shadow: inset 0 0 .1875rem #fff;
+  box-shadow: inset 0 0 0.1875rem #fff;
 }
 
 .app_body .app img {
@@ -213,7 +225,7 @@ export default {
 }
 
 .app_body .app p {
-  margin-top: .625rem;
+  margin-top: 0.625rem;
 }
 
 /*右键菜单栏 */
@@ -226,12 +238,12 @@ export default {
   background: rgb(238, 231, 231);
   text-align: left;
   z-index: 1000;
-  padding: .3125rem;
+  padding: 0.3125rem;
   border-radius: 10px;
 }
 
 .rightMenu ul li {
-  padding: .3125rem .625rem;
+  padding: 0.3125rem 0.625rem;
   border-bottom: 1px solid #000;
   cursor: default;
 }
@@ -239,5 +251,4 @@ export default {
 .rightMenu ul li:hover {
   background: #ccc;
 }
-
 </style>

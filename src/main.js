@@ -13,6 +13,12 @@ Vue.use(ElementUI);
 import axios from 'axios';
 Vue.prototype.$axios=axios;
 
+
+// 引入vue-draggable-resizable组件
+import VueDraggableResizable from 'vue-draggable-resizable'
+import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
+Vue.component('vue-draggable-resizable', VueDraggableResizable)
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -6,7 +6,11 @@
       <i class="icon-renwuguanli1 iconfont"></i>
     </div>
 
-    <div class="center"></div>
+    <div class="center" ref="center">
+      <div v-for="item in $store.state.opendApp.opendAppArr" :key="item.id">
+        <img :src="item.src" alt />
+      </div>
+    </div>
 
     <div class="right">
       <i class="icon-lianxiren iconfont"></i>
@@ -80,7 +84,9 @@ export default {
       showClose: false,
     };
   },
+
   mounted() {
+    // this.addApp("http://qyfpfgs9h.hn-bkt.clouddn.com/changeDeskbg.png");
     this.showTime();
     this.timer = setInterval(() => {
       this.showTime();
@@ -157,16 +163,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .footer {
-  height: 7%;
+  height: 6%;
   width: 100%;
   background: rgb(0, 0, 0);
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #fff;
-  padding: 0 .625rem;
+  padding: 0 0.625rem;
+  position: relative;
+  top:8px
 }
 
 .footer i {
@@ -179,8 +187,8 @@ export default {
 }
 
 .footer .left i {
-  margin: 0 .3125rem;
-  padding: .125rem .625rem;
+  margin: 0 0.3125rem;
+  padding: 0.125rem 0.625rem;
 }
 
 .footer .right {
@@ -189,7 +197,7 @@ export default {
 
 .footer .right div {
   display: inline-block;
-  font-size: .75rem;
+  font-size: 0.75rem;
   text-align: center;
   cursor: default;
 }
@@ -201,7 +209,7 @@ export default {
 
 .footer .right i,
 .footer .right div {
-  padding: .125rem .5rem;
+  padding: 0.125rem 0.5rem;
 }
 
 .footer .left i:hover,
@@ -213,6 +221,28 @@ export default {
 
 .footer .icon-Windows:hover {
   color: #1296db;
+}
+
+.footer .center {
+  display: flex;
+  justify-content: flex-start;
+  width: 60%;
+}
+
+.footer .center div {
+  width: 5%;
+  border-bottom: 0.125rem solid rgba(255, 255, 255, 0.5);
+  margin: 0 0.2rem;
+  padding-bottom: 0.2rem;
+  padding: 8px;
+}
+
+.footer .center div:first-child {
+  margin-left: -0.2rem;
+}
+
+.footer .center div:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /*windows菜单栏 */
@@ -252,7 +282,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
-  padding-left: .875rem;
+  padding-left: 0.875rem;
 }
 
 #startMenu_wrap .startMenu_left .startMenu_left_item i {
@@ -267,7 +297,7 @@ export default {
   left: 0;
   top: 0;
   justify-self: start;
-  margin-top: .3125rem;
+  margin-top: 0.3125rem;
 }
 
 #startMenu_wrap .startMenu_left .startMenu_left_item img {
@@ -295,31 +325,31 @@ export default {
 #startMenu_wrap .startMenu_right .startMenu_right_top {
   width: 96%;
   height: 2.1875rem;
-  margin: .3125rem 0 0 0;
+  margin: 0.3125rem 0 0 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_top span {
   color: #ffffff;
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_content {
   width: 98%;
   height: 37.5rem;
-  margin-top: .625rem;
+  margin-top: 0.625rem;
   overflow: scroll;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_content::-webkit-scrollbar {
-  width: .1875rem;
+  width: 0.1875rem;
   height: 100%;
 }
 #startMenu_wrap
   .startMenu_right
   .startMenu_right_content::-webkit-scrollbar-thumb {
-  width: .1875rem;
+  width: 0.1875rem;
   background: #0086b3;
-  border-radius: .1875rem;
+  border-radius: 0.1875rem;
 }
 #startMenu_wrap .startMenu_right .startMenu_right_content .startMenu_app_item {
   width: 96%;
@@ -328,7 +358,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: .625rem;
+  margin-bottom: 0.625rem;
 }
 #startMenu_wrap
   .startMenu_right
@@ -344,7 +374,7 @@ export default {
   .app_item_img_wrap {
   width: 2.1875rem;
   height: 2.1875rem;
-  margin-right: .625rem;
+  margin-right: 0.625rem;
   display: flex;
   justify-content: center;
   align-items: center;
