@@ -11,7 +11,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 import axios from 'axios';
+// axios.defaults.withCredentials = true;  //携带cookie
 Vue.prototype.$axios=axios;
+
 
 
 // 引入vue-draggable-resizable组件

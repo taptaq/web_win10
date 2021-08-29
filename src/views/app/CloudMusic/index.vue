@@ -1,13 +1,15 @@
 <template>
   <div class="cloudMusic_body">
     <el-container direction="vertical">
-     <Header />
+      <Header />
       <el-container>
         <Aside />
         <Main/>
       </el-container>
       <Footer/>
     </el-container>
+
+  <LoginWrap v-if="$store.state.musicLogin.showLogin"/>
   </div>
 </template>
 
@@ -16,14 +18,15 @@ import Header from '@/components/cloudMusic/Header'
 import Aside from '@/components/cloudMusic/Aside'
 import Footer from '@/components/cloudMusic/Footer'
 import Main from '@/components/cloudMusic/Main'
+import LoginWrap from '@/components/cloudMusic/LoginWrap'
 export default {
   name: "cloudMusic",
- 
   components:{
     Header,
     Aside,
     Footer,
-    Main
+    Main,
+    LoginWrap
   }
 };
 </script>
@@ -52,4 +55,5 @@ export default {
 .el-container:nth-child(2) {
   height: 27rem;
 }
+
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="banner-box" ref="bannerBox">
     <div class="wrapper">
-      <div v-for="item in bannerImg" :key="item.encodeId" :class="item.className" :style="item.sty">
+      <div v-for="item in bannerImg" :key="item.index" :class="item.className" :style="item.sty">
         <img :src="item.imageUrl" alt />
       </div>
     </div>
@@ -28,9 +28,9 @@ export default {
   },
   mounted() {
     this.$axios
-      .get("https://cloud-music-liard.vercel.app/banner?type=0")
+      .get("/api/banner?type=0")
       .then((res) => {
-        // console.log(res.data);
+        // console.log(res.data.banners);
         if (res.data.code === 200) {
           this.bannerImg = res.data.banners;
           this.bannerImg = this.computedImg(this.initial, this.bannerImg);
@@ -76,12 +76,13 @@ export default {
       return imgs.map((item, index) => {
         let zIndex = 0,
           className = "slide",
-          transform = "translateX(-50%) scale(0.9)";
+          transform = "translateX(-50%) scale(0.75)";
 
         switch (index) {
           case center:
             zIndex = 2;
             className = "slide active";
+            transform='';
             break;
           case left:
             zIndex = 1;
@@ -175,7 +176,7 @@ export default {
 .banner-box .wrapper .slide.active {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%) scale(1);
+  transform: translateX(-50%) scale(0.9);
 }
 
 .banner-box .arrow {

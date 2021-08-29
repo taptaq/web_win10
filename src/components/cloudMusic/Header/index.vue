@@ -19,20 +19,34 @@
         </div>
       </div>
       <div class="search">
-        <el-input placeholder="搜索" v-model="searchVal">
+        <el-input
+          placeholder="搜索"
+          v-model="searchVal"
+          @input="searchMsg"
+          @focus="showSearchTip=true"
+          @blur="showSearchTip=false"
+        >
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
       </div>
     </div>
 
+    <!--搜索提示框--> 
+    <searchTip :searchVal="searchVal" :searchSongsData="searchSongsData" :searchAlbumData="searchAlbumData" :searchSingerData="searchSingerData" :searchUserData="searchUserData"/>
+
     <!--用户信息部分-->
     <div class="user_box">
       <div class="user_msg">
-        <img src="@/assets/avatar.png" alt class="avatar" />
-        <span class="username">
-          Taptaq
-          <i class="icon-dowm iconfont down"></i>
-        </span>
+        <div @click="showLoginWrap">
+          <div class="avatar">
+            <img src="@/assets/user.png" alt v-if="!$store.state.musicLogin.isLogin" />
+          </div>
+
+          <span class="username" v-if="!$store.state.musicLogin.isLogin">
+            未登录
+            <i class="icon-dowm iconfont down"></i>
+          </span>
+        </div>
 
         <span class="vip">开通VIP</span>
         <div class="assistIcon">
@@ -53,12 +67,38 @@
 </template>
 
 <script>
+import SearchTip from "@/components/cloudMusic/Header/SearchTip";
 export default {
   name: "musicHeader",
   data() {
     return {
       searchVal: "",
+      showSearchTip: false,
+      searchSongsData:[],
+      searchAlbumData:[],
+      searchSingerData:[],
+      searchUserData:[],
     };
+  },
+  components: {
+    SearchTip,
+  },
+  methods: {
+    showLoginWrap() {
+      this.$store.commit("musicLogin/changeLoginWrapState", true);
+    },
+
+    // 搜索
+    searchMsg(e) {
+      if (this.searchVal != "") {
+        // 利用axios的并发请求
+        this.$axios
+          .get("/api/cloudsearch?keywords=" + this.searchVal)
+          .then((res) => {
+            console.log(res);
+          });
+      }
+    },
   },
 };
 </script>
@@ -107,7 +147,7 @@ export default {
 .search_box {
   width: 15.625rem;
   height: 100%;
-  margin-right: 4.375rem;
+  margin-right: 3.5rem;
   line-height: 3.7rem;
 }
 
@@ -136,12 +176,12 @@ export default {
 
 .search_box .search {
   width: 10.875rem;
-  margin-left: .625rem;
+  margin-left: 0.625rem;
 }
 
-.search_box .search .el-input__icon{
+.search_box .search .el-input__icon {
   position: relative;
-  top:.125rem
+  top: 0.125rem;
 }
 
 .search_box .search /deep/ .el-input .el-input__inner {
@@ -161,9 +201,9 @@ export default {
   justify-content: flex-start;
   align-items: center;
   color: #fff;
-  font-size: .875rem;
+  font-size: 0.875rem;
   position: relative;
-  left: .9375rem;
+  left: 0.9375rem;
 }
 
 .user_box div {
@@ -174,17 +214,20 @@ export default {
   width: 16.25rem;
 }
 
-.user_box .avatar {
-  width: 2.5rem;
-  height: 2.5rem;
+.user_box .user_msg .avatar {
+  width: 1.6rem;
+  height: 1.6rem;
   border-radius: 50%;
-  overflow: hidden;
-  margin-right: .125rem;
+  margin-right: 0.125rem;
+  background: rgb(214, 208, 208);
+  position: relative;
+  top:8px
 }
 
-.user_box .avatar img {
-  width: 100%;
-  height: 100%;
+.user_box .user_msg .avatar img {
+   position: absolute;
+ top:0px;
+  transform: scale(0.7);
 }
 
 .user_box .user_msg .username,
@@ -195,44 +238,53 @@ export default {
 
 .user_box .user_msg .username:hover,
 .user_box .user_msg .vip:hover,
-.user_box i:hover {
+.user_box .user_msg .username:hover i {
   color: #fff;
+}
+
+.user_box .user_msg .username i {
+  margin-left: -2px;
 }
 
 .user_box .user_msg .down {
   position: relative;
-  top: .125rem;
-  left: --0.1875rem;
+  top: 0.125rem;
+  left: -0.1875rem;
 }
 
 .user_box .user_msg .vip {
-  margin-right: .875rem;
+  margin-left: 0.2rem;
   position: relative;
-  top: .0625rem;
+  top: 0.0625rem;
 }
 
 .user_box .user_msg .assistIcon {
   position: relative;
-  top: .0625rem;
-  left: .3125rem;
+  top: 0.0625rem;
+  left: 1.6rem;
 }
 
 .user_box .user_msg .assistIcon i {
-  margin: .125rem .625rem 0 0;
+  margin: 0.125rem 0.625rem 0 0;
 }
 
 .user_box .user_msg .assistIcon i:last-child {
   font-size: 1.1875rem;
   position: relative;
-  top: .0625rem;
+  top: 0.0625rem;
 }
 
 .user_box .closeSetting {
-  margin-left: .625rem;
-  margin-top: .125rem;
+  margin-left: 0.625rem;
+  margin-top: 0.125rem;
+}
+
+.user_box .closeSetting i:first-child {
+  position: relative;
+  top: -1px;
 }
 
 .user_box .closeSetting i {
-  margin: .125rem .9375rem 0 0;
+  margin: 0.125rem 0.9375rem 0 0;
 }
 </style>
