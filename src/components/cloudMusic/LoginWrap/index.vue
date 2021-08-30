@@ -11,8 +11,8 @@
       <el-form-item label="手机号码">
         <el-input v-model="form.phoneNumber"></el-input>
       </el-form-item>
-       <el-form-item label="密码">
-        <el-input v-model="form.password"></el-input>
+      <el-form-item label="密码">
+        <el-input type="password" v-model="form.password"></el-input>
       </el-form-item>
       <!--
       <el-form-item label="验证码" class="verify">
@@ -43,7 +43,7 @@ export default {
         phoneNumber: "",
         verify: "",
         type: [],
-        password:""
+        password: "",
       },
       timer: null,
     };
@@ -78,76 +78,79 @@ export default {
         });
     },
 
-    // 登录
-    // login() {
-    //   this.$axios
-    //     .post("https://cloud-music-liard.vercel.app/captcha/verify", {
-    //       phone: this.form.phoneNumber,
-    //       captcha: this.form.verify,
-    //     })
-    //     .then((res) => {
-    //       if (res.status === 200) {
-    //         console.log(res);
-    //       }
-    //     })
-    //     .then(() => {
-    //       this.$axios
-    //         .get("https://cloud-music-liard.vercel.app/login/refresh")
-    //         .then((res) => {
-    //           if (res.status === 200) {
-    //             console.log(res);
-    //           }
-    //         });
-    //     });
-    // },
-
-
     //   手机登录请求
     async login() {
       let timestamp = Date.parse(new Date());
-      let result = await this.$axios.get("/api/login/cellphone", {
-        phone: this.form.phoneNumber,
-        password: this.form.password,
-        withCredentials: true,
-        timestamp,
-      });
+      let result = await this.$axios.get(
+        `/api/login/cellphone?phone=${this.form.phoneNumber}&password=${this.form.password}&timestamp=${timestamp}`
+      );
       // 登录成功
       if (result.data.code == 200) {
-        // 将请求到的用户id存入localstorage
-        // window.localStorage.setItem("userId", result.data.profile.userId);
-        // this.userInfo = result.data.profile;
-        // this.isPopoverShow = false;
-        // this.$message.success("登录成功!");
-        // 刷新页面
-        // this.$router.go(0);
-        // 修改vuex中的登录状态
-        // this.$store.commit("updataLoginState", true);
-        // this.$store.commit("updateCurrentUserId", result.data.profile.userId);
-        console.log('登陆成功')
+        this.$message({
+          message: "登录成功!",
+          type: "success",
+        });
+        window.localStorage.setItem("isLogin", true);
+        this.getUserMsg();
       } else if (result.data.code == 400) {
         // 手机号错误
-        // this.$message.error("手机号错误!");
-        console.log('手机号错误');
+        this.$message.error("手机号错误!");
         return;
       } else if (result.data.code == 502) {
         // 密码错误
-        // this.$message.error("密码错误!");
-        console.log('密码错误');
+        this.$message.error("密码错误!");
         return;
       } else {
-        // 登录失败，请稍后重试
-        // this.$message.error("登录失败，请稍后重试!");
-        console.log("登录失败，请稍后重试!");
+        this.$message.error("登录失败，请稍后重试!");
         return;
       }
-
       // 清空输入框的内容
-    //   this.loginForm.password = "";
-    //   this.loginForm.phoneNum = "";
+      this.form.phoneNumber = "";
+      this.form.password = "";
     },
 
+    // 获取用户基本信息
+    async getUserMsg() {
+      // 修改vuex中的登录状态
+      this.$store.commit("musicLogin/changLoginState", true);
+      this.$store.commit("musicLogin/changeLoginWrapState", false);
+      let timestamp = Date.parse(new Date());
+      let result = await this.$axios.get(
+        `/api/user/account?timestamp=${timestamp}`
+      );
+      if (result.status === 200) {
+        // console.log(result);
+        let userProfile = result.data.profile;
+        // 将请求到的用户id存入localstorage
+        window.localStorage.setItem("userId", userProfile.userId);
+        window.localStorage.setItem("username", userProfile.nickname);
+        window.localStorage.setItem("avatarImg", userProfile.avatarUrl);
 
+        this.$store.commit("musicLogin/changeUserName", userProfile.nickname);
+        this.$store.commit("musicLogin/changeAvatarImg", userProfile.avatarUrl);
 
+        this.getUserDetailMsg();
+      }
+    },
+
+    // 获取用户详情信息
+    async getUserDetailMsg() {
+      let timestamp = Date.parse(new Date());
+      let result = await this.$axios.get(
+        `/api/user/detail?uid=${window.localStorage.getItem(
+          "userId"
+        )}&timestamp=${timestamp}`
+      );
+      if (result.status === 200) {
+        console.log(result.data);
+        window.localStorage.setItem(
+          "userOtherInfo",
+          JSON.stringify(result.data)
+        );
+      }
+      // 刷新一下页面（折腾点）
+      window.location.reload();
+    },
   },
 };
 </script>

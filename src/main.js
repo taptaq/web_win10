@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+
 import animated from 'animate.css'
 Vue.use(animated);
 
@@ -13,7 +14,6 @@ Vue.use(ElementUI);
 import axios from 'axios';
 // axios.defaults.withCredentials = true;  //携带cookie
 Vue.prototype.$axios=axios;
-
 
 
 // 引入vue-draggable-resizable组件

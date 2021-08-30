@@ -123,8 +123,6 @@ export default {
     Banner,
   },
   mounted() {
-
-
     // 获取推荐歌单的数据
     this.$axios
       .get("/api/personalized?limit=10")
@@ -147,7 +145,7 @@ export default {
 
     // 获取最新音乐的数据
     this.$axios
-      .get("/api/personalized/newsong?limit=26")
+      .get("/api/personalized/newsong?limit=12")
       .then((res) => {
         if (res.data.code === 200) {
           // console.log(res.data.result);
@@ -255,7 +253,7 @@ export default {
 }
 
 .recommendSong .recommendList .listItem .itemTitle {
-  font-size: .875rem;
+  font-size: .7rem;
   height: 10%;
   text-align: left;
 }

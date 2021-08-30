@@ -2,7 +2,7 @@
   <el-aside width="200px">
     <div class="aside_wrap">
       <ul ref="asideWrap">
-        <li class="active">发现音乐</li>
+        <li class="active" @click="showIndexPage">发现音乐</li>
         <li>博客</li>
         <li>视频</li>
         <li>朋友</li>
@@ -53,13 +53,20 @@ export default {
   name: "musicAside",
   mounted() {
     this.$refs.asideWrap.addEventListener("click", (e) => {
-      this.$refs.asideWrap.children.forEach(item=>{
-          item.classList.remove('active');
-      })
+      this.$refs.asideWrap.children.forEach((item) => {
+        item.classList.remove("active");
+      });
       if (e.target.tagName === "LI" && e.target.className !== "titleItem") {
         e.target.classList.add("active");
       }
     });
+  },
+  methods: {
+     // 显示音乐主页
+    showIndexPage() {
+      this.$store.state.musicPage.showPersonalPage = false;
+      this.$store.state.musicPage.showIndexPage = true;
+    },
   },
 };
 </script>
@@ -73,19 +80,18 @@ export default {
 }
 
 .el-aside .aside_wrap {
-  padding: .625rem;
-  font-size: .875rem;
+  padding: 0.625rem;
+  font-size: 0.875rem;
 }
 
 .el-aside li {
-  padding: .5rem;
-  padding-right: .5rem;
-  margin: .125rem 0;
-  width:10.9375rem;
+  padding: 0.5rem;
+  padding-right: 0.5rem;
+  margin: 0.125rem 0;
+  width: 10.9375rem;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-
 }
 
 .el-aside li:hover:not(.titleItem) {
@@ -100,9 +106,9 @@ export default {
 
 .el-aside .titleItem {
   cursor: default;
-  font-size: .875rem;
+  font-size: 0.875rem;
   color: rgb(158, 144, 144);
-  margin-top: .3125rem;
+  margin-top: 0.3125rem;
 }
 
 .el-aside .titleItem:nth-of-type(1) {

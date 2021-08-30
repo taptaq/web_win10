@@ -1,7 +1,7 @@
 <template>
   <div class="searchTipWrap">
     <!--热搜榜-->
-    <ul v-if="!searchVal">
+    <ul v-if="!searchVal" class="hotList">
       <li class="hot">热搜榜</li>
       <li v-for="(item,index) in hotSearch" :key="item.score">
         <span>{{index+1}}</span>
@@ -9,9 +9,9 @@
           <p>
             {{item.searchWord}}
             <img src="@/assets/hot.png" v-if="item.iconType===1" />
-            <img src="@/assets/new.png" v-if="item.iconType===0" />
-            <img src="@/assets/toparrow.png" v-if="item.iconType===2" />
-            <i class="score">{{item.score}}</i>
+            <img src="@/assets/new.png" v-if="item.iconType===3" />
+            <i class="icon-jiantou1-copy-copy iconfont" v-if="item.iconType===2" />
+            <span class="score">{{item.score}}</span>
           </p>
           <p>{{item.content}}</p>
         </div>
@@ -25,32 +25,35 @@
         <i class="icon-arrow-left-copy-copy iconfont"></i>
       </div>
       <ul>
-        <li>
+        <li class='title'>
           <i class="icon-danqu iconfont"></i>
           单曲
         </li>
-        <li></li>
+        <li v-for="item in searchSongsData" :key="item.id">{{item.name}} - {{searchVal}}</li>
       </ul>
 
       <ul>
-        <li>
+        <li class='title'>
           <i class="icon-geshou iconfont"></i>
           歌手
         </li>
+        <li>{{searchSingerData[0].artists[0].name}}</li>
       </ul>
 
       <ul>
-        <li>
+        <li class='title'>
           <i class="icon-zhuanji iconfont"></i>
           专辑
         </li>
+        <li v-for="item in searchAlbumData" :key="item.id">{{item.name}} - {{searchVal}}</li>
       </ul>
 
       <ul>
-        <li>
+        <li class='title'>
           <i class="icon-gedan iconfont"></i>
           歌单
         </li>
+        <li v-for="item in searchListData" :key="item.id">{{item.name}}</li>
       </ul>
     </div>
   </div>
@@ -72,7 +75,7 @@ export default {
     searchSingerData: {
       type: Array,
     },
-    searchUserData: {
+    searchListData: {
       type: Array,
     },
   },
@@ -111,11 +114,11 @@ export default {
   width: 0;
 }
 
-.searchTipWrap ul {
+.searchTipWrap .hotList {
   height: 100%;
 }
 
-.searchTipWrap li {
+.searchTipWrap .hotList li {
   font-size: 14px;
   padding: 2px 15px;
   display: flex;
@@ -124,13 +127,14 @@ export default {
   width: 100%;
 }
 
-.searchTipWrap li:first-child {
+.searchTipWrap .hotList li:first-child {
   font-size: 15px;
   color: rgba(7, 2, 2, 0.5);
   margin-bottom: -18px;
+    margin-top: -8px;
 }
 
-.searchTipWrap li:not(.hot) span {
+.searchTipWrap .hotList li:not(.hot) span {
   margin-right: 25px;
   font-size: 18px;
   color: rgba(7, 2, 2, 0.4);
@@ -138,19 +142,19 @@ export default {
   width: 3%;
 }
 
-.searchTipWrap li:nth-of-type(2) span,
-.searchTipWrap li:nth-of-type(3) span,
-.searchTipWrap li:nth-of-type(4) span {
+.searchTipWrap .hotList .hotList li:nth-of-type(2) span,
+.searchTipWrap .hotList .hotList li:nth-of-type(3) span,
+.searchTipWrap .hotList .hotList li:nth-of-type(4) span {
   color: red;
 }
 
-.searchTipWrap li:nth-of-type(2) .word p:first-child,
-.searchTipWrap li:nth-of-type(3) .word p:first-child,
-.searchTipWrap li:nth-of-type(4) .word p:first-child {
+.searchTipWrap .hotList li:nth-of-type(2) .word p:first-child,
+.searchTipWrap .hotList li:nth-of-type(3) .word p:first-child,
+.searchTipWrap .hotList li:nth-of-type(4) .word p:first-child {
   font-weight: 800;
 }
 
-.searchTipWrap li:not(.hot) .word {
+.searchTipWrap .hotList li:not(.hot) .word {
   width: 95%;
   display: flex;
   flex-direction: column;
@@ -160,37 +164,43 @@ export default {
   position: relative;
 }
 
-.searchTipWrap li:not(.hot) .word .score {
+.searchTipWrap .hotList li:not(.hot) .word .score {
   color: rgba(0, 0, 0, 0.4);
   font-size: 12px;
 }
 
-.searchTipWrap li:not(.hot) .word p {
+.searchTipWrap .hotList li:not(.hot) .word p {
   width: 95%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.searchTipWrap li:not(.hot) .word p:first-child img {
-  width: 12%;
+.searchTipWrap .hotList li:not(.hot) .word p:first-child img {
+  width: 11%;
 }
 
-.searchTipWrap li .word p:last-child {
+.searchTipWrap .hotList li:not(.hot) .word p:first-child i {
+  color: red;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+.searchTipWrap .hotList li .word p:last-child {
   color: rgba(7, 2, 2, 0.4);
   font-size: 12px;
 }
 
-.searchTipWrap li:not(.hot) p:last-child {
+.searchTipWrap .hotList li:not(.hot) p:last-child {
   margin: -35px 0;
 }
 
-.searchTipWrap li:not(.hot):hover {
+.searchTipWrap .hotList li:not(.hot):hover {
   background: rgba(0, 0, 0, 0.1);
 }
 
 /*查找榜 */
-.searchTipWrap .result {
+.searchTipWrap .searchList .result {
   font-size: 14px;
   padding: 2px 15px;
   display: flex;
@@ -200,11 +210,28 @@ export default {
   font-size: 15px;
   color: rgba(7, 2, 2, 0.5);
   margin-bottom: -18px;
+  margin-top: -8px;
 }
 
 .searchList .result i {
   font-size: 12px;
   margin-left: 3px;
+  transform: scale(0.8);
+}
+
+.searchList ul li{
+  font-size: 14px;
+  padding: 0 15px;
+  width: 100%;
+  height:30px;
+  line-height: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.searchList ul li:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .searchList ul li:first-child {
@@ -213,6 +240,9 @@ export default {
 
 .searchList ul li:first-child i {
   font-weight: 800;
-  margin-right: 5px;
+}
+
+.searchList ul li:not(.title){
+  padding-left:30px
 }
 </style>

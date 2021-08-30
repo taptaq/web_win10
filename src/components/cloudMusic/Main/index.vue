@@ -1,19 +1,24 @@
 <template>
   <el-main>
     <div class="main_wrap">
-      <Index />
+      <IndexPage v-show="$store.state.musicPage.showIndexPage" />
+      <PersonalPage v-show="$store.state.musicPage.showPersonalPage" />
+      <SearchResult v-show="$store.state.musicPage.showSearchResult" />
     </div>
   </el-main>
 </template>
 
 <script>
-import Index from "@/components/cloudMusic/Main/IndexPage";
+import IndexPage from "@/components/cloudMusic/Main/IndexPage";
+import PersonalPage from "@/components/cloudMusic/Main/PersonalPage";
+import SearchResult from "@/components/cloudMusic/Main/SearchResult";
 
 export default {
   name: "musicMain",
   components: {
-    Index,
-    showIndex: true,
+    IndexPage,
+    PersonalPage,
+    SearchResult
   },
 };
 </script>

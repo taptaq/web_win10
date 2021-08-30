@@ -123,7 +123,6 @@ export default {
                 }
 
                 if (appId === "5") {
-                  // this.$store.commit("monitorApp/changDeskState", false);
                   let obj={id:appId,src:e.target.src};
                   this.$store.commit("opendApp/addOpendApp", obj);
                 }
