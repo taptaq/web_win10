@@ -13,7 +13,7 @@
           <span>LV {{personalData.level}}</span>
 
           <i class="icon-nan iconfont" v-if="personalData.profile.gender===1"></i>
-          <i class="icon-nv iconfont" v-if="personalData.profile.gender===0"></i>
+          <i class="icon-nv iconfont" v-else></i>
 
           <span>
             <i class="icon-bianji iconfont"></i> 编辑个人信息
@@ -110,7 +110,7 @@ export default {
 
     //   console.log(this.personalData);
     } catch (error) {
-      consoel.log(error.message);
+      console.log(error.message);
     }
   },
 

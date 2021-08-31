@@ -8,13 +8,15 @@ import monitorApp from './monitorApp'
 import opendApp from './opendApp'
 import musicLogin from './musicLogin'
 import musicPage from './musicPage'
+import musicPlay from './musicPlay'
 
 export default new Vuex.Store({
-  modules:{
+  modules: {
     deskBg,
     monitorApp,
     opendApp,
     musicLogin,
-    musicPage
+    musicPage,
+    musicPlay
   }
 })

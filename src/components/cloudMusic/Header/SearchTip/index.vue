@@ -25,7 +25,7 @@
         <i class="icon-arrow-left-copy-copy iconfont"></i>
       </div>
       <ul>
-        <li class='title'>
+        <li class="title">
           <i class="icon-danqu iconfont"></i>
           单曲
         </li>
@@ -33,23 +33,23 @@
       </ul>
 
       <ul>
-        <li class='title'>
+        <li class="title">
           <i class="icon-geshou iconfont"></i>
           歌手
         </li>
-        <li>{{searchSingerData[0].artists[0].name}}</li>
+        <li v-for="item in searchSingerData" :key="item.id">{{item.name}}</li>
       </ul>
 
       <ul>
-        <li class='title'>
+        <li class="title">
           <i class="icon-zhuanji iconfont"></i>
           专辑
         </li>
-        <li v-for="item in searchAlbumData" :key="item.id">{{item.name}} - {{searchVal}}</li>
+        <li v-for="item in searchAlbumData" :key="item.id">{{item.name}} - {{item.artist.name}}</li>
       </ul>
 
       <ul>
-        <li class='title'>
+        <li class="title">
           <i class="icon-gedan iconfont"></i>
           歌单
         </li>
@@ -78,6 +78,9 @@ export default {
     searchListData: {
       type: Array,
     },
+    detailData:{
+      type:Object
+    }
   },
   data() {
     return {
@@ -131,7 +134,7 @@ export default {
   font-size: 15px;
   color: rgba(7, 2, 2, 0.5);
   margin-bottom: -18px;
-    margin-top: -8px;
+  margin-top: -8px;
 }
 
 .searchTipWrap .hotList li:not(.hot) span {
@@ -213,17 +216,21 @@ export default {
   margin-top: -8px;
 }
 
+.searchTipWrap .searchList .result:hover{
+  color:#000
+}
+
 .searchList .result i {
   font-size: 12px;
   margin-left: 3px;
   transform: scale(0.8);
 }
 
-.searchList ul li{
+.searchList ul li {
   font-size: 14px;
   padding: 0 15px;
   width: 100%;
-  height:30px;
+  height: 30px;
   line-height: 30px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -242,7 +249,7 @@ export default {
   font-weight: 800;
 }
 
-.searchList ul li:not(.title){
-  padding-left:30px
+.searchList ul li:not(.title) {
+  padding-left: 30px;
 }
 </style>

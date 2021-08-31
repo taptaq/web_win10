@@ -24,9 +24,10 @@
         <el-input
           placeholder="搜索"
           v-model="searchVal"
-          @input="searchMsg"
+          @input="searchMsgDebounce"
           @focus="showSearchTip=true"
           @blur="showSearchTip=false"
+          @keyup.enter.native="detailSearch"
         >
           <i slot="prefix" class="el-input__icon el-icon-search"></i>
         </el-input>
@@ -147,6 +148,8 @@
 
 <script>
 import SearchTip from "@/components/cloudMusic/Header/SearchTip";
+import bus from "@/utils/bus"; //引入总线bus
+import { methods as utils } from "@/utils";
 export default {
   name: "musicHeader",
   data() {
@@ -188,27 +191,44 @@ export default {
       this.$store.commit("musicLogin/changeLoginWrapState", true);
     },
 
-    // 搜索
-    searchMsg(e) {
+    // 防抖搜索(普通)
+    searchMsgDebounce: utils.debounce(function () {
       if (this.searchVal != "") {
         // 利用axios的并发请求
         this.$axios
           .all([
-            this.$axios.get(`/api/search?keywords=${this.searchVal}?type=1`),
-            this.$axios.get(`/api/search?keywords=${this.searchVal}?type=10`),
-            this.$axios.get(`/api/search?keywords=${this.searchVal}?type=100`),
-            this.$axios.get(`/api/search?keywords=${this.searchVal}?type=1000`),
+            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=1`), //单曲
+            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=10`), //专辑
+            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=100`), //歌手
+            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=1000`), //歌单
           ])
 
           .then(
             this.$axios.spread((obj1, obj2, obj3, obj4) => {
-              // console.log(obj1.data.result.songs,obj2.data.result.songs,obj3.data.result.songs,obj4.data.result.songs);
-              this.searchSongsData = obj1.data.result.songs.slice(8, 20);
-              this.searchAlbumData = obj2.data.result.songs.slice(0, 8);
-              this.searchSingerData = obj3.data.result.songs;
-              this.searchListData = obj4.data.result.songs.slice(0, 8);
+              // console.log(
+              //   obj1.data.result,
+              //   obj2.data.result,
+              //   obj3.data.result,
+              //   obj4.data.result
+              // );
+              this.searchSongsData = obj1.data.result.songs.slice(0, 10);
+              this.searchAlbumData = obj2.data.result.albums.slice(0, 10);
+              this.searchSingerData = obj3.data.result.artists.slice(0, 2);
+              this.searchListData = obj4.data.result.playlists.slice(0, 5);
             })
           );
+      }
+    }, 800),
+
+    // 详细搜索跳转到搜索结果页面
+    detailSearch() {
+      if (this.searchVal != "") {
+        bus.$emit('searchVal', this.searchVal);
+        this.$store.commit("musicPage/changeShowIndex", false);
+        this.$store.commit("musicPage/changeShowPersonal", false);
+        this.$store.commit("musicPage/changeShowSearch", true);
+        // })
+        // );
       }
     },
 
