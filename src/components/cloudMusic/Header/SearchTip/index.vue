@@ -29,7 +29,7 @@
           <i class="icon-danqu iconfont"></i>
           单曲
         </li>
-        <li v-for="item in searchSongsData" :key="item.id">{{item.name}} - {{searchVal}}</li>
+        <li v-for="item in searchSongsData" :key="item.id">{{item.name}} - {{item.artists[0].name}}</li>
       </ul>
 
       <ul>
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import bus from "@/utils/bus"; //引入总线bus
 export default {
   name: "searchTip",
   props: {
@@ -78,9 +79,9 @@ export default {
     searchListData: {
       type: Array,
     },
-    detailData:{
-      type:Object
-    }
+    detailData: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -88,6 +89,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.searchSongsData);
     //   获取热搜榜的数据
     this.$axios.get("/api/search/hot/detail").then((res) => {
       if (res.status === 200) {
@@ -216,8 +218,8 @@ export default {
   margin-top: -8px;
 }
 
-.searchTipWrap .searchList .result:hover{
-  color:#000
+.searchTipWrap .searchList .result:hover {
+  color: #000;
 }
 
 .searchList .result i {

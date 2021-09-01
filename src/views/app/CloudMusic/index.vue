@@ -4,30 +4,34 @@
       <Header />
       <el-container>
         <Aside />
-        <Main/>
+        <Main />
       </el-container>
-      <Footer/>
+      <Footer></Footer>
     </el-container>
 
-  <LoginWrap v-if="$store.state.musicLogin.showLogin"/>
+    <LoginWrap v-if="$store.state.musicLogin.showLogin" />
+
+    <MusicDetail v-if="$store.state.musicPage.showSongDetail" />
   </div>
 </template>
 
 <script>
-import Header from '@/components/cloudMusic/Header'
-import Aside from '@/components/cloudMusic/Aside'
-import Footer from '@/components/cloudMusic/Footer'
-import Main from '@/components/cloudMusic/Main'
-import LoginWrap from '@/components/cloudMusic/LoginWrap'
+import Header from "@/components/cloudMusic/Header";
+import Aside from "@/components/cloudMusic/Aside";
+import Footer from "@/components/cloudMusic/Footer";
+import Main from "@/components/cloudMusic/Main";
+import LoginWrap from "@/components/cloudMusic/LoginWrap";
+import MusicDetail from "@/components/cloudMusic/MusicDetail";
 export default {
   name: "cloudMusic",
-  components:{
+  components: {
     Header,
     Aside,
     Footer,
     Main,
-    LoginWrap
-  }
+    LoginWrap,
+    MusicDetail,
+  },
 };
 </script>
 
@@ -55,5 +59,4 @@ export default {
 .el-container:nth-child(2) {
   height: 27rem;
 }
-
 </style>

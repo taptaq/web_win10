@@ -62,10 +62,11 @@ export default {
     });
   },
   methods: {
-     // 显示音乐主页
+    // 显示音乐主页
     showIndexPage() {
-      this.$store.state.musicPage.showPersonalPage = false;
-      this.$store.state.musicPage.showIndexPage = true;
+      this.$store.commit("musicPage/changeShowPersonal", false);
+      this.$store.commit("musicPage/changeShowIndex", true);
+      this.$store.commit("musicPage/changeShowSearch", false);
     },
   },
 };

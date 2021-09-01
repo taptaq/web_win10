@@ -212,8 +212,6 @@ export default {
         musicListId: this.$store.state.musicPlay.curMuiscListId,
       });
 
-      // 更新当前播放音乐的总时长
-      this.$store.commit("musicPlay/updateCurMuiscDuration", row.dt); // 更新当前播放音乐的id
       //  console.log(this.$store.state.musicPlay.curMuiscList);
       //   console.log(this.$store.state.musicPlay.curMuiscListId);
     },
@@ -364,5 +362,10 @@ export default {
   text-align: center;
   padding-bottom: 10px;
   margin: 30px 0;
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active{
+    background: red;
+    opacity: 0.8;
 }
 </style>

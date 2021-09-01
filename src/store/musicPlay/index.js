@@ -9,8 +9,8 @@ export default {
         isPlay: false, //播放状态
         curMusicIndex: -1, //当前播放音乐的索引
         isMusicLoad: false, //音乐是否在加载
-        createdMusicList: [], // 用户创建的歌单
-        curMuiscDuration:''   //当前音乐的时长
+        createdMusicList: [], // 用户创建的歌单,
+        curMusicMsg:{}   //当前音乐的详细信息
     },
     mutations: {
         // 改变当前播放音乐的地址
@@ -59,10 +59,9 @@ export default {
             state.currentTime = value;
         },
 
-
-        // 更新当前音乐的时长
-        updateCurMuiscDuration(state,value){
-            state.curMuiscDuration = value;
+        // 更新当前音乐的详细信息
+        updateCurMusicMsg(state,value){
+            state.curMusicMsg=value
         }
     },
     actions: {},

@@ -13,7 +13,7 @@
           <span>LV {{personalData.level}}</span>
 
           <i class="icon-nan iconfont" v-if="personalData.profile.gender===1"></i>
-          <i class="icon-nv iconfont" v-else></i>
+          <i class="icon-nv iconfont" v-else-if="personalData.profile.gender===0"></i>
 
           <span>
             <i class="icon-bianji iconfont"></i> 编辑个人信息
@@ -72,14 +72,14 @@
           <p>我的听歌排行</p>
           <p>累计听歌1025首</p>
         </div>
-        <div class="item" v-for="item in userSongList" :key='item.id'>
+        <div class="item" v-for="item in userSongList" :key="item.id">
           <div class="img">
-           <div class="playCount">
+            <div class="playCount">
               <i class="icon-bofang iconfont"></i>
               <span>{{item.playCount}}</span>
             </div>
             <img :src="item.coverImgUrl" alt />
-             <div class="play">
+            <div class="play">
               <i class="icon-bofang iconfont"></i>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default {
   data() {
     return {
       personalData: {},
-      userSongList:[]
+      userSongList: [],
     };
   },
   mounted() {
@@ -107,8 +107,6 @@ export default {
       );
 
       this.getUserSongList();
-
-    //   console.log(this.personalData);
     } catch (error) {
       console.log(error.message);
     }
@@ -122,7 +120,7 @@ export default {
       );
       if (result.status === 200) {
         // console.log(result.data);
-        this.userSongList=result.data.playlist
+        this.userSongList = result.data.playlist;
       }
     },
   },
@@ -258,14 +256,14 @@ export default {
   margin-top: 10px;
 }
 
-.songsList .listWrap .item:first-child .img{
-    background: rgba(0, 0, 0, 0.8);
+.songsList .listWrap .item:first-child .img {
+  background: rgba(0, 0, 0, 0.8);
 }
 
-.songsList .listWrap .item:first-child img{
-    width:100%;
-    height:100%;
-    position:absolute;
+.songsList .listWrap .item:first-child img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
   transform: scale(0.6);
 }
 
@@ -289,16 +287,16 @@ export default {
 
 .songsList .listWrap div .img .playCount {
   position: absolute;
-  left: .5rem;
-  top: .1875rem;
+  left: 0.5rem;
+  top: 0.1875rem;
   color: #fff;
-  font-size: .75rem;
-  text-shadow: 0 0 .5rem rgb(90, 82, 82);
+  font-size: 0.75rem;
+  text-shadow: 0 0 0.5rem rgb(90, 82, 82);
 }
 
 .songsList .listWrap div .img .playCount i {
-  font-size: .75rem;
-  margin-right: .1875rem;
+  font-size: 0.75rem;
+  margin-right: 0.1875rem;
 }
 
 .songsList .listWrap div .img .play {
@@ -324,7 +322,7 @@ export default {
   opacity: 1;
 }
 
-.songsList .listWrap .item p:last-child{
-    color:rgba(0, 0, 0, 0.5)
+.songsList .listWrap .item p:last-child {
+  color: rgba(0, 0, 0, 0.5);
 }
 </style>

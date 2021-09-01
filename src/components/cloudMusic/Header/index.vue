@@ -223,12 +223,10 @@ export default {
     // 详细搜索跳转到搜索结果页面
     detailSearch() {
       if (this.searchVal != "") {
-        bus.$emit('searchVal', this.searchVal);
+        bus.$emit("searchVal", this.searchVal);
         this.$store.commit("musicPage/changeShowIndex", false);
         this.$store.commit("musicPage/changeShowPersonal", false);
         this.$store.commit("musicPage/changeShowSearch", true);
-        // })
-        // );
       }
     },
 
@@ -247,15 +245,17 @@ export default {
     // 显示个人主页
     showPersonalPage() {
       if (this.$store.state.musicLogin.isLogin === true) {
-        this.$store.state.musicPage.showPersonalPage = true;
-        this.$store.state.musicPage.showIndexPage = false;
+        this.$store.commit("musicPage/changeShowPersonal", true);
+        this.$store.commit("musicPage/changeShowIndex", false);
+        this.$store.commit("musicPage/changeShowSearch", false);
       }
     },
 
     // 显示音乐主页
     showIndexPage() {
-      this.$store.state.musicPage.showPersonalPage = false;
-      this.$store.state.musicPage.showIndexPage = true;
+      this.$store.commit("musicPage/changeShowPersonal", false);
+      this.$store.commit("musicPage/changeShowIndex", true);
+      this.$store.commit("musicPage/changeShowSearch", false);
     },
 
     // 登出
