@@ -138,7 +138,6 @@ export default {
   },
 
   mounted() {
-    console.log(1);
     this.getLikeMusicList();
 
     this.$refs.volume.addEventListener("mouseenter", () => {
@@ -287,7 +286,7 @@ export default {
       let time = this.$refs.audioPlayer.currentTime; //获取当前音源的播放时间
 
       // 将当前播放时间保存到vuex  如果保存到vuex这步节流,会导致歌词不精准,误差最大有1s
-      // this.$store.commit("musicPlay/updateCurrentTime", time);
+      this.$store.commit("musicPlay/updateCurrentTime", time);
 
       time = Math.floor(time);
       if (time !== this.lastSecond) {
@@ -302,6 +301,7 @@ export default {
     changeProgress(e) {
       this.currentTime = Math.floor((e / 100) * this.durationNum);
       this.$refs.audioPlayer.currentTime = this.currentTime; //改变当前音源的播放时间
+       this.$store.commit("musicPlay/updateCurrentTime", this.currentTime);
     },
 
     // 点击播放列表中的其中一首
@@ -475,6 +475,8 @@ export default {
   height: calc(100vh - 194px);
   position: fixed;
   top: 61px;
+  z-index:1000
+
 }
 
 .el-drawer {
@@ -484,6 +486,7 @@ export default {
 
 .el-drawer__body {
   overflow: auto;
+ 
 }
 
 .el-drawer__container ::-webkit-scrollbar {

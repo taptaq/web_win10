@@ -167,6 +167,7 @@ export default {
 </script>
 
 <style scoped>
+
 /*推荐歌单*/
 .recommendSong {
   width: 100%;

@@ -55,7 +55,7 @@ export default {
   padding-top: .625rem;
   cursor: pointer;
   background: #fff;
-  z-index: 10;
+  z-index: 1;
   padding-right: 3.125rem;
   font-size: .875rem;
 }

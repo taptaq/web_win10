@@ -1,4 +1,5 @@
 <template>
+<div class='bannerWrap'>
   <div class="banner-box" ref="bannerBox">
     <div class="wrapper">
       <div v-for="item in bannerImg" :key="item.index" :class="item.className" :style="item.sty">
@@ -12,6 +13,7 @@
     <div class="arrow arrow-right" @click="toNextThrottle">
       <i class="icon-arrow-left-copy-copy iconfont"></i>
     </div>
+  </div>
   </div>
 </template>
 
@@ -146,6 +148,7 @@ export default {
   width: 100%;
   height: 50%;
   cursor: pointer;
+  z-index:0
 }
 
 .banner-box:hover .arrow {

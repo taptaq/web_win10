@@ -1,18 +1,11 @@
 <template>
-  <div class="contentWrap">
-    <div class="songTitle">
+  <div class="contentWrap" ref="contentWrap">
+    <div class="songTitle" ref="songTitle">
       <p>{{musicDetailMsg.name}}</p>
       <p>{{musicDetailMsg.ar[0].name}} - {{musicDetailMsg.al.name}}</p>
     </div>
 
-    <div class="center">
-      <!--<div class="albumImg discAnimation">
-        <img src="@/assets/needle.png" alt class="needle" />
-
-        <img src="@/assets/disc.png" alt class="img img1" />
-        <img :src="musicDetailMsg.al.picUrl" alt class="img img2 " />
-      </div>-->
-
+    <div class="center" ref="center">
       <div class="albumImg">
         <div
           class="needle"
@@ -28,24 +21,16 @@
         </div>
       </div>
 
-      <div class="songWords">
-        <p>作词 : 薛之谦</p>
-        <p>作曲 : 罗小黑</p>
-        <p>编曲 : 周以力</p>
-
-        <p>制作人 : 周以力/郑伟</p>
-        <p>你降落的 太突然了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>你降落的 太突然了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>我刚好呢 又路过了</p>
-        <p>我刚好呢 又路过了</p>
+      <div class="songWords" ref="songWords">
+        <div class="lyricWrap" ref="lyricWrap">
+          <p
+            v-for="(item,index) in lyric"
+            :key="item[0]"
+            class="lyric"
+            :class="lyricIndex - 1 == index ? 'lyricActive' : ''"
+            ref="lyric"
+          >{{item[1]}}</p>
+        </div>
       </div>
 
       <div class="model">
@@ -56,112 +41,55 @@
     </div>
 
     <div class="comment">
-      <div class="commentNum">全部评论(453739)</div>
       <div class="commentWrap">
-        <div class="hotComment">
-          <div class="commentItem">
-            <div class="userImg">
-              <img src="@/assets/avatar.png" alt />
-            </div>
-
-            <div class="commentContent">
-              <span class="username">Taptaq:</span>
-              <span>「我怎會與你無關」 小時候我們相愛，因為莽莽撞撞所以分開。 後來的我們再遇見，你我都長大了，夢想都總算實現了… 不知道此刻，我們還適不適合再愛一遍。 转自AGA</span>
-
-              <div class="otherMsg">
-                <div class="date">8月27日 01:25</div>
-                <div class="menu">
-                  <span>
-                    <i class="icon-zan iconfont"></i>191
-                  </span>
-                  <span>|</span>
-                  <span>
-                    <i class="icon-fenxiang iconfont"></i>
-                  </span>
-                  <span>|</span>
-                  <span>
-                    <i class="icon-pinglun iconfont"></i>
-                  </span>
+        <div class="topCommentArea" ref="topCommentArea">
+          <div class="commentNum">全部评论({{comments.total}})</div>
+          <div class="hotComment">
+            <div class="commentItem" v-for="item in commentMsg.hotComments" :key="item.commentId">
+              <div class="userImg">
+                <img :src="item.user.avatarUrl+'?param=45y45'" alt />
+              </div>
+              <div class="commentContent">
+                <span class="username">{{item.user.nickname}}：</span>
+                <span>{{item.content}}</span>
+                <div class="otherMsg">
+                  <div class="date">{{item.time | formatDate}}</div>
+                  <div class="menu">
+                    <span :class="item.liked?'active':''">
+                      <i class="icon-zan iconfont"></i>
+                      {{item.likedCount}}
+                    </span>
+                    <span>|</span>
+                    <span>
+                      <i class="icon-fenxiang iconfont"></i>
+                    </span>
+                    <span>|</span>
+                    <span>
+                      <i class="icon-pinglun iconfont"></i>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="commentItem">
-            <div class="userImg">
-              <img src="@/assets/avatar.png" alt />
-            </div>
-
-            <div class="commentContent">
-              <span class="username">Taptaq:</span>
-              <span>「我怎會與你無關」 小時候我們相愛，因為莽莽撞撞所以分開。 後來的我們再遇見，你我都長大了，夢想都總算實現了… 不知道此刻，我們還適不適合再愛一遍。 转自AGA</span>
-
-              <div class="otherMsg">
-                <div class="date">8月27日 01:25</div>
-                <div class="menu">
-                  <span>
-                    <i class="icon-zan iconfont"></i>191
-                  </span>
-                  <span>|</span>
-                  <span>
-                    <i class="icon-fenxiang iconfont"></i>
-                  </span>
-                  <span>|</span>
-                  <span>
-                    <i class="icon-pinglun iconfont"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="commentItem">
-            <div class="userImg">
-              <img src="@/assets/avatar.png" alt />
-            </div>
-
-            <div class="commentContent">
-              <span class="username">Taptaq:</span>
-              <span>「我怎會與你無關」 小時候我們相愛，因為莽莽撞撞所以分開。 後來的我們再遇見，你我都長大了，夢想都總算實現了… 不知道此刻，我們還適不適合再愛一遍。 转自AGA</span>
-
-              <div class="otherMsg">
-                <div class="date">8月27日 01:25</div>
-                <div class="menu">
-                  <span class="active">
-                    <i class="icon-zan iconfont"></i>191
-                  </span>
-                  <span>|</span>
-                  <span>
-                    <i class="icon-fenxiang iconfont"></i>
-                  </span>
-                  <span>|</span>
-                  <span>
-                    <i class="icon-pinglun iconfont"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="moreComment">更多精彩评论 ></div>
         </div>
 
-        <div class="moreComment">更多精彩评论 ></div>
-
         <div class="newComment">
-          <div class="newTitle">最新评论(111)</div>
-          <div class="commentItem">
+          <div class="newTitle">最新评论({{comments.total}})</div>
+          <div class="commentItem" v-for="item in comments.comments" :key="item.commentId">
             <div class="userImg">
-              <img src="@/assets/avatar.png" alt />
+              <img :src="item.user.avatarUrl+'?param=45y45'" alt />
             </div>
-
             <div class="commentContent">
-              <span class="username">Taptaq:</span>
-              <span>「我怎會與你無關」 小時候我們相愛，因為莽莽撞撞所以分開。 後來的我們再遇見，你我都長大了，夢想都總算實現了… 不知道此刻，我們還適不適合再愛一遍。 转自AGA</span>
-
+              <span class="username">{{item.user.nickname}}：</span>
+              <span>{{item.content}}</span>
               <div class="otherMsg">
-                <div class="date">8月27日 01:25</div>
+                <div class="date">{{item.time | formatDate}}</div>
                 <div class="menu">
-                  <span>
-                    <i class="icon-zan iconfont"></i>191
+                  <span :class="item.liked?'active':''">
+                    <i class="icon-zan iconfont"></i>
+                    {{item.likedCount}}
                   </span>
                   <span>|</span>
                   <span>
@@ -176,35 +104,15 @@
             </div>
           </div>
 
-          <div class="commentItem">
-            <div class="userImg">
-              <img src="@/assets/avatar.png" alt />
-            </div>
-
-            <div class="commentContent">
-              <span class="username">Taptaq:</span>
-              <span>「我怎會與你無關」 小時候我們相愛，因為莽莽撞撞所以分開。 後來的我們再遇見，你我都長大了，夢想都總算實現了… 不知道此刻，我們還適不適合再愛一遍。 转自AGA</span>
-
-              <div class="otherMsg">
-                <div class="date">8月27日 01:25</div>
-                <div class="menu">
-                  <span>
-                    <i class="icon-zan iconfont"></i>191
-                  </span>
-                  <span>|</span>
-                  <span>
-                    <i class="icon-fenxiang iconfont"></i>
-                  </span>
-                  <span>|</span>
-                  <span>
-                    <i class="icon-pinglun iconfont"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <el-pagination background layout="prev, pager, next" :total="30"></el-pagination>
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="comments.total"
+            small
+            :page-size="20"
+            :current-page="currentPage"
+            @current-change="commentPageChange"
+          ></el-pagination>
         </div>
       </div>
     </div>
@@ -216,20 +124,148 @@ export default {
   name: "ContentWrap",
   data() {
     return {
-      musicDetailMsg: this.$store.state.musicPlay.curMusicMsg,
-      lyric: [[0, "正在加载歌词"]],   //歌词
+      musicDetailMsg: this.$store.state.musicPlay.curMusicMsg, //歌曲的详细信息
+      currentPage: this.commentMsg.curCommentPage,
+      comments: this.commentMsg.comments,
+      scrollDis: 0, //评论区初始的滚动高度
+      lyricIndex: 0, //当前播放歌词的索引
+      scrollLyricDis: 0, //歌词区初始的滚动高度
     };
   },
-  mounted() {
-    // console.log(this.musicDetailMsg);
-    this.$axios.get(`/api/lyric?id=${this.musicDetailMsg.id}`).then((res) => {
-      console.log(res);
-      if (res.status === 200) {
-        let lyricArr=res.data.lrc.lyric.split("\n");
 
-        // console.log(this.lyric)
+  props: {
+    lyric: {
+      type: Array,
+    },
+    commentMsg: {
+      type: Object,
+    },
+  },
+
+  watch: {
+    // 监听当前播放时间
+    "$store.state.musicPlay.currentTime"(currentTime, lastTime) {
+      // 如果两个时间间隔有1秒,则可得知进度条被拖动 需要重新校准歌词index
+      // 当歌词数量大于1并且索引为零时,可能歌词位置差距较大,走这个if进行快速跳转
+      if (
+        (lastTime && Math.abs(currentTime - lastTime) >= 1) ||
+        (this.lyricIndex == 0 && this.lyric.length > 1)
+      ) {
+        // 处理播放时间跳转时歌词位置的校准
+        if (this.lyric.length > 1) {
+          this.getCurrentLyricsIndex(currentTime);
+          // 滑动到当前歌词
+          this.lyricScroll(this.lyricsIndex);
+        }
       }
-    });
+      // 根据实时播放时间实现歌词滚动
+      if (this.lyricIndex < this.lyric.length) {
+        if (currentTime >= this.lyric[this.lyricIndex][0]) {
+          //当前播放时间大于该句的时长
+          this.lyricIndex += 1;
+          this.lyricScroll(this.lyricIndex);
+        }
+      }
+    },
+
+    // 监听vuex中的musicId 重置歌词索引
+    "$store.state.musicPlay.curMusicId"(musicId) {
+      this.lyricIndex = 0;
+    },
+
+    lyric(current) {
+      // console.log("获取了歌词");
+      // 大于一秒，说明歌词在1秒后才请求成功 歌词可能不能马上跳转到当前时间 这里进行校准
+      if (this.$store.state.musicPlay.currentTime > 1) {
+        // 处理播放时间跳转时歌词位置的校准
+        if (this.lyric.length > 1) {
+          this.getCurrentLyricsIndex(this.$store.state.musicPlay.currentTime);
+          this.$nextTick(() => {
+            // 滑动到当前歌词
+            this.lyricScroll(this.lyricIndex);
+          });
+        }
+      }
+    },
+  },
+
+  methods: {
+    //点击分页按钮
+    commentPageChange(page) {
+      this.currentPage = page;
+      this.getComment(this.$store.state.musicPlay.curMusicId, "changePage");
+    },
+
+    // 请求评论数据
+    async getComment(id, type) {
+      var timestamp = Date.parse(new Date());
+      this.commentMsg.isCommentLoading = true;
+      if (type == "changePage") {
+        this.$refs.topCommentArea.classList.add("disappear");
+        let distance =
+          this.$refs.songTitle.offsetHeight + this.$refs.center.offsetHeight;
+
+        this.scrollDis = this.$refs.contentWrap.offsetHeight;
+        let timer = setInterval(() => {
+          if (this.scrollDis <= distance - 60) {
+            clearInterval(timer);
+          } else {
+            this.scrollDis -= 10;
+            this.$refs.contentWrap.scrollTo(0, this.scrollDis);
+          }
+        }, 10);
+      }
+
+      let res = await this.$axios.get(
+        `/api/comment/music?id=${id}&offset=${
+          (this.currentPage - 1) * 20
+        }&timestamp=${timestamp}`
+      );
+      // console.log(res);
+      if (res.data.code !== 200) {
+        this.$message.error("获取评论失败,请稍后重试!");
+      }
+
+      this.isCommentLoading = false;
+      this.comments = res.data;
+    },
+
+    // 歌词的滚动
+    lyricScroll(curLyric) {
+      // 获取歌词项
+      let lyrics = this.$refs.lyric;
+      // 获取歌词框
+      let songWords = this.$refs.songWords;
+      //   歌词item在歌词框的高度 = 歌词框的offsetTop - 歌词item的offsetTop
+      if (lyrics[curLyric - 1]) {
+        // console.log("2",lyrics[curLyric - 1].offsetTop, songWords.offsetTop);
+        // console.log(this.lyric[curLyric - 1]);
+        let distance = lyrics[curLyric - 1].offsetTop;
+        // console.log(distance);
+        // setInterval(() => {
+        //   songWords.scrollTo(0, distance + 28);
+        // }, this.lyric[curLyric - 1][0]);
+        if (lyrics[curLyric - 1] !== 0) {
+          this.$refs.lyricWrap.style.top =
+            parseInt(this.$refs.lyricWrap.offsetTop) - distance/2  + "px";
+        }
+      }
+    },
+
+    //获取当前歌词索引
+    getCurrentLyricsIndex(currentTime) {
+      let lyricIndex = 0;
+      this.lyric.some((item) => {
+        // 当前索引没有超出歌词索引的范围，且当前播放时间大于歌词对应的时间时，当前索引加1，跳到下一句歌词
+        if (lyricIndex < this.lyric.length - 1 && currentTime > item[0]) {
+          lyricIndex += 1;
+
+          return currentTime <= item[0]; //当前播放时间小于歌词对应的时间，当前索引不变，还继续停留在该歌词上
+        }
+      });
+      // console.log(lyricsIndex);
+      this.lyricIndex = lyricIndex;
+    },
   },
 };
 </script>
@@ -241,6 +277,7 @@ export default {
   margin: 30px 0;
   text-align: center;
   overflow: auto;
+  transition: all 0.2s;
 }
 
 .contentWrap::-webkit-scrollbar {
@@ -264,43 +301,10 @@ export default {
   margin-top: 40px;
 }
 
-.contentWrap .center .songWords {
-  height: 260px;
-  overflow: auto;
-  padding: 10px 50px;
-  position: relative;
-  left: -40px;
-}
-
-.contentWrap .center .songWords::-webkit-scrollbar {
-  width: 0;
-}
-
-.contentWrap .center .model div:first-child {
-  font-size: 25px;
-  font-weight: 800;
-}
-
-.contentWrap .center .model div:not(:first-child) {
-  margin: 12px 0;
-  width: 100px;
-  padding: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-  box-shadow: 0 0 8px rgb(163, 149, 149);
-  transition: all 0.3s;
-}
-
-.contentWrap .center .model div:not(:first-child):hover,
-.contentWrap .center .model div.active {
-  background: rgb(163, 153, 153);
-  color: #fff;
-  box-shadow: 0 0 10px rgb(139, 120, 120);
-}
-
+/*专辑转动部分*/
 .contentWrap .center .albumImg {
-  width: 240px;
-  height: 240px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   position: relative;
   border: 10px solid rgb(185, 163, 163);
@@ -309,8 +313,7 @@ export default {
 }
 
 .discContainer {
-  margin-top: 60px;
-  width: 220px;
+  margin-top: 55px;
   position: relative;
 }
 
@@ -335,8 +338,8 @@ export default {
 }
 
 .disc {
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   position: relative;
   top: -72px;
 }
@@ -347,9 +350,9 @@ export default {
 
 .disc .musicAvatar {
   position: absolute;
-  top: 35px;
-  left: 35px;
-  width: 150px;
+  top: 32px;
+  left: 30px;
+  width: 138px;
   z-index: -1;
 }
 
@@ -368,6 +371,60 @@ export default {
   to {
     transform: rotate(360deg);
   }
+}
+
+.contentWrap .center .songWords {
+  width: 30%;
+  height: 260px;
+  overflow: auto;
+  padding: 10px 50px;
+  position: relative;
+  left: -40px;
+}
+
+.contentWrap .center .songWords::-webkit-scrollbar {
+  width: 0;
+}
+
+.contentWrap .center .songWords .lyricWrap {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.contentWrap .center .songWords .lyric {
+  margin: 15px 0;
+  font-size: 14px;
+  height: 28px;
+}
+
+.contentWrap .center .songWords .lyric.lyricActive {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.contentWrap .center .model div:first-child {
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.contentWrap .center .model div:not(:first-child) {
+  margin: 12px 0;
+  width: 100px;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgb(163, 149, 149);
+  transition: all 0.3s;
+}
+
+.contentWrap .center .model div:not(:first-child):hover,
+.contentWrap .center .model div.active {
+  background: rgb(211, 61, 61);
+  color: #fff;
+  box-shadow: 0 0 10px rgb(139, 120, 120);
 }
 
 /*评论部分 */
@@ -389,11 +446,18 @@ export default {
   margin-top: 10px;
 }
 
+.contentWrap .comment .commentWrap .topCommentArea.disappear {
+  height: 0;
+  display: none;
+}
+
 .contentWrap .comment .commentWrap .userImg {
-  width: 110px;
-  border-right: 50%;
+  border-radius: 50%;
   overflow: hidden;
-  margin-right: 8px;
+  margin-right: 12px;
+  width: 38px;
+  height: 38px;
+  box-shadow: 0 0 8px rgb(177, 165, 165);
 }
 
 .contentWrap .comment .commentWrap .userImg img {
@@ -416,7 +480,7 @@ export default {
 }
 
 .contentWrap .comment .commentWrap .moreComment:hover {
-  background: rgb(163, 153, 153);
+  background: rgb(211, 61, 61);
   color: #fff;
 }
 
@@ -435,6 +499,10 @@ export default {
   margin: 5px;
   border-bottom: 1px solid #ccc;
   padding: 8px 0;
+}
+
+.contentWrap .comment .commentContent {
+  width: 88%;
 }
 
 .contentWrap .comment .commentContent .username {

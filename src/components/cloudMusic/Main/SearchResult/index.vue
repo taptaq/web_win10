@@ -18,7 +18,7 @@
       <div class="matchResult">
         <div class="singer" v-for="item in multiMatch.artist" :key="item.id">
           <div class="matchCover">
-            <img :src="item.img1v1Url + '?param==210y210'" alt />
+            <img :src="item.img1v1Url + '?param=210y210'" alt />
           </div>
           <div class="matchName">
             歌手：{{ item.name }}

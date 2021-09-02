@@ -1,5 +1,5 @@
 <template>
-  <el-header>
+  <el-header ref='elHeader'>
     <!--标题-->
     <div class="title">
       <i class="icon-arrowdown iconfont" @click="toMusicIndex"></i>
@@ -75,6 +75,7 @@ export default {
       searchAlbumData: [],
       searchSingerData: [],
       searchListData: [],
+      headerHeight:0
     };
   },
   components: {
@@ -92,6 +93,8 @@ export default {
     } catch (error) {
       console.log(error.message);
     }
+
+    this.headerHeight=this.$refs.elHeader.offsetHeight;
   },
 
   methods: {
@@ -140,6 +143,7 @@ export default {
       this.$store.commit("musicPage/changeShowPersonal", false);
       this.$store.commit("musicPage/changeShowSearch", false);
       this.$store.commit("musicPage/changeShowSongDetail", false);
+      
     }
   },
 };
