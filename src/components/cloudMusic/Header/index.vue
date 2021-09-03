@@ -140,7 +140,7 @@
         <i class="icon-0039 iconfont"></i>
         <i class="icon-zuixiaohua iconfont"></i>
         <i class="icon-zuidahua iconfont"></i>
-        <i class="icon-guanbi iconfont"></i>
+        <i class="icon-guanbi iconfont" @click='closeCloudMusic'></i>
       </div>
     </div>
   </el-header>
@@ -227,6 +227,8 @@ export default {
         this.$store.commit("musicPage/changeShowIndex", false);
         this.$store.commit("musicPage/changeShowPersonal", false);
         this.$store.commit("musicPage/changeShowSearch", true);
+        this.$store.commit("musicPage/changeShowSongDetail", false);
+        this.$store.commit("musicPage/changeShowMoreComments", false);
       }
     },
 
@@ -248,6 +250,8 @@ export default {
         this.$store.commit("musicPage/changeShowPersonal", true);
         this.$store.commit("musicPage/changeShowIndex", false);
         this.$store.commit("musicPage/changeShowSearch", false);
+        this.$store.commit("musicPage/changeShowMoreComments", false);
+        this.$store.commit("musicPage/changeShowSongDetail", false);
       }
     },
 
@@ -256,6 +260,8 @@ export default {
       this.$store.commit("musicPage/changeShowPersonal", false);
       this.$store.commit("musicPage/changeShowIndex", true);
       this.$store.commit("musicPage/changeShowSearch", false);
+      this.$store.commit("musicPage/changeShowMoreComments", false);
+      this.$store.commit("musicPage/changeShowSongDetail", false);
     },
 
     // 登出
@@ -276,6 +282,13 @@ export default {
           window.location.reload();
         }
       });
+    },
+
+
+      //   关闭网易云应用
+    closeCloudMusic() {
+      this.$store.commit("monitorApp/changMusicState", true);
+      this.$store.commit("opendApp/deleOpendApp", '5');
     },
   },
 };

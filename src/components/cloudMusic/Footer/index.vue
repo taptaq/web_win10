@@ -539,6 +539,7 @@ body .el-table .el-table__row .currentRow {
   bottom:0;
   left:0;
   background: #fff;
+  z-index:1
 }
 
 .el-footer .left {
@@ -642,11 +643,6 @@ body .el-table .el-table__row .currentRow {
 }
 
 
-
-
-
-
-
 .el-footer .center {
   width: 40%;
   position: relative;
@@ -699,7 +695,7 @@ body .el-table .el-table__row .currentRow {
   opacity: 0;
   position: absolute;
   left: 78px;
-  top: -85px;
+  top: -75px;
   background: #fff;
   display: flex;
   justify-content: center;

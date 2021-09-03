@@ -134,6 +134,7 @@ export default {
         this.$store.commit("musicPage/changeShowIndex", false);
         this.$store.commit("musicPage/changeShowPersonal", false);
         this.$store.commit("musicPage/changeShowSearch", true);
+          this.$store.commit("musicPage/changeShowSongDetail", false);
       }
     },
 

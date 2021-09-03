@@ -1,5 +1,5 @@
 <template>
-  <div class="cloudMusic_body">
+  <div class="cloudMusic_body" @mousedown='move' v-if="!$store.state.monitorApp.musicAppClose">
     <el-container direction="vertical">
       <Header />
       <el-container>
@@ -49,6 +49,7 @@ export default {
         curCommentPage: 1, //当前评论页面的页数
         hotComments: [], // 热门评论
       },
+      timer:null
     };
   },
 
@@ -59,22 +60,28 @@ export default {
       //   性能优化
       // 如果卡片没有展示就不发送请求和渲染里面的内容
       // 删除定时器 避免用户在关闭卡片的1s内又打开卡片 导致展示内容被删除
-      // clearTimeout(timer);
+      clearTimeout(this.timer);
       this.deleteCard = false;
-      // if (
-      //   isShowSongDetail &&
-      //   !this.comment.comments &&
-      //   this.$store.state.musicPlay.curMusicId !== ""
-      // ) {
+      if (
+        isShowSongDetail &&
+        !this.commentMsg.comments.comments &&
+        this.$store.state.musicPlay.curMusicId !== ""
+      ) {
       this.getLyric(this.$store.state.musicPlay.curMusicId);
       this.getComment(this.$store.state.musicPlay.curMusicId);
-      // }
+      }
       // 当卡片关闭时 延迟 3s再删除里面渲染的内容 提升体验
-      // else if (isShowSongDetail === false) {
-      //   timer = setTimeout(() => {
-      //     this.deleteCard = true;
-      //   }, 3000);
-      // }
+      else if (isShowSongDetail === false) {
+        this.timer = setTimeout(() => {
+          this.deleteCard = true;
+        }, 3000);
+      }
+    },
+
+     // 监听vuex中的curMusicId,更新了重新获取歌词和评论
+    "$store.state.musicPlay.curMusicId"(musicId) {
+      this.getLyric(musicId);
+      this.getComment(musicId);
     },
   },
 
@@ -135,6 +142,51 @@ export default {
       this.commentMsg.isCommentLoading = false;
       this.commentMsg.comments = res.data;
     },
+
+    // 应用的拖拽
+    move(e) {
+      let odiv = e.target.parentNode;
+      if (e.target.className === "el-header") {
+        let disX = e.clientX - odiv.offsetLeft;
+        let disY = e.clientY - odiv.offsetTop;
+        console.log(odiv.offsetTop,odiv.offsetLeft);
+
+        document.onmousemove = (e) => {
+          let left = e.clientX - disX;
+          let top = e.clientY - disY;
+          // if (top <= odiv.offsetHeight / 2) {
+          //   top = odiv.offsetHeight / 2;
+          // } else if (left <= odiv.offsetWidth / 2) {
+          //   left = odiv.offsetWidth / 2;
+          // } else if (top >= document.body.offsetHeight - 70) {
+          //   top = document.body.offsetHeight - 70;
+          // } else if (left >= document.body.offsetWidth - odiv.offsetWidth/2) {
+          //   left = document.body.offsetWidth - odiv.offsetWidth/2;
+          // }
+
+          // console.log('left:',left,'top:',top);
+            if (top <= -odiv.offsetHeight / 2) {
+            top = odiv.offsetHeight / 2;
+          } else if (left <= -odiv.offsetWidth / 2) {
+            left = odiv.offsetWidth / 2;
+          } else if (top >= document.body.offsetHeight - 70) {
+            top = document.body.offsetHeight - 70;
+          } else if (left >= document.body.offsetWidth - odiv.offsetWidth/2) {
+            left = document.body.offsetWidth - odiv.offsetWidth/2;
+          }
+
+          odiv.style.left = left + "px";
+          odiv.style.top = top + "px";
+          // console.log(odiv.style.left, odiv.style.top);
+        };
+
+        document.onmouseup = (e) => {
+          document.onmousemove = null;
+          document.onmouseup = null;
+        };
+      }
+    },
+
   },
 };
 </script>

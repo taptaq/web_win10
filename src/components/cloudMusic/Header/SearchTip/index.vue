@@ -89,7 +89,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.searchSongsData);
+    // console.log(this.searchSongsData);
     //   获取热搜榜的数据
     this.$axios.get("/api/search/hot/detail").then((res) => {
       if (res.status === 200) {

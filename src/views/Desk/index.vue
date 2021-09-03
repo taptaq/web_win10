@@ -116,13 +116,15 @@ export default {
             item.addEventListener("dblclick", (e) => {
               if (e.target.tagName === "IMG") {
                 let appId = e.target.dataset.appid;
+                // 主题壁纸应用
                 if (appId === '3') {
                   this.$store.commit("monitorApp/changDeskState", false);
                   let obj={id:appId,src:e.target.src};
                   this.$store.commit("opendApp/addOpendApp", obj);
                 }
-
+                // 网易云应用
                 if (appId === "5") {
+                   this.$store.commit("monitorApp/changMusicState", false);
                   let obj={id:appId,src:e.target.src};
                   this.$store.commit("opendApp/addOpendApp", obj);
                 }
