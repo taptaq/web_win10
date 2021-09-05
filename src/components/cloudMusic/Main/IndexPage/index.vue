@@ -46,9 +46,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   position: fixed;
-  left: 12.5rem;
-  top: 3.75rem;
-  width: 80%;
+  left: 13.5rem;
+  top: 4rem;
+  width: 45rem;
   height: 3.4375rem;
   line-height: 2.375rem;
   padding-left: 1.25rem;
@@ -61,8 +61,8 @@ export default {
 }
 
 .indexHeader div {
-  width: 17%;
-  height: 82%;
+  width: 7.5625rem;
+  height: 2.5625rem;
 }
 
 .indexHeader div.active {

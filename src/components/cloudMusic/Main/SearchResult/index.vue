@@ -211,7 +211,7 @@ export default {
         curMuiscList,
         musicListId: this.$store.state.musicPlay.curMuiscListId,
       });
-
+      
       //  console.log(this.$store.state.musicPlay.curMuiscList);
       //   console.log(this.$store.state.musicPlay.curMuiscListId);
     },
@@ -239,26 +239,26 @@ export default {
 }
 
 .searchWrap ul li {
-  margin-right: 30px;
-  font-size: 15px;
+  margin-right: 1.875rem;
+  font-size: .9375rem;
 }
 
 .searchWrap ul li.active {
-  border-bottom: 3px solid rgb(236, 65, 65);
-  padding-bottom: 2px;
+  border-bottom: .1875rem solid rgb(236, 65, 65);
+  padding-bottom: .125rem;
   font-weight: 700;
 }
 
 /*最佳匹配区域*/
 .searchWrap .multiMatch {
   width: 100%;
-  margin-top: 10px;
+  margin-top: .625rem;
 }
 
 .searchWrap .multiMatch .matchTitle {
-  font-size: 14px;
+  font-size: .875rem;
   color: rgb(34, 34, 34);
-  margin: 5px 0;
+  margin: .3125rem 0;
   font-weight: 700;
 }
 
@@ -267,33 +267,33 @@ export default {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: 80px;
-  margin-bottom: 20px;
+  height: 5rem;
+  margin-bottom: 1.25rem;
   cursor: pointer;
 }
 
 .searchWrap .multiMatch .matchResult .singer,
 .searchWrap .multiMatch .matchResult .album {
-  border-radius: 5px;
+  border-radius: .3125rem;
   overflow: hidden;
-  width: 300px;
+  width: 18.75rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 1.25rem;
   background: rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
 .searchWrap .multiMatch .matchResult i {
   position: absolute;
-  right: 10px;
+  right: .625rem;
   top: 50%;
 }
 
 .searchWrap .multiMatch .matchCover {
-  width: 80px;
-  height: 80px;
+  width: 5rem;
+  height: 5rem;
 }
 
 .searchWrap .multiMatch .matchCover img {
@@ -302,28 +302,28 @@ export default {
 }
 
 .searchWrap .multiMatch .matchName {
-  font-size: 15px;
+  font-size: .9375rem;
   color: rgb(31, 31, 31);
-  margin-left: 12px;
+  margin-left: .75rem;
 }
 
 .searchWrap .multiMatch .matchName p {
-  font-size: 14px;
+  font-size: .875rem;
   color: rgba(0, 0, 0, 0.5);
 }
 
 .searchWrap .multiMatch .matchName span {
-  margin-right: 5px;
-  font-size: 13px;
+  margin-right: .3125rem;
+  font-size: .8125rem;
   color: rgba(0, 0, 0, 0.5);
   position: relative;
-  top: -1px;
+  top: -0.0625rem;
 }
 
 .searchWrap .multiMatch i {
   position: absolute;
   transform: translateY(-50%);
-  right: 15px;
+  right: .9375rem;
   top: 50%;
 }
 
@@ -332,13 +332,13 @@ export default {
 }
 
 .el-table .icon-xihuan {
-  margin-right: 5px;
+  margin-right: .3125rem;
 }
 
 .el-table .icon-xihuan1 {
   color: red;
-  margin-right: 5px;
-  font-size: 14px;
+  margin-right: .3125rem;
+  font-size: .875rem;
 }
 
 .el-table .notShow {
@@ -347,7 +347,7 @@ export default {
 
 .el-table .icon-xiazai {
   position: relative;
-  top: -1px;
+  top: -0.0625rem;
 }
 
 .el-table /deep/ .el-table_6_column_40 div {
@@ -360,8 +360,8 @@ export default {
 .page {
   width: 95%;
   text-align: center;
-  padding-bottom: 10px;
-  margin: 30px 0;
+  padding-bottom: .625rem;
+  margin: 1.875rem 0;
 }
 
 .el-pagination.is-background .el-pager li:not(.disabled).active{

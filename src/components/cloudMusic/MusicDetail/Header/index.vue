@@ -55,7 +55,7 @@
         <i class="icon-0039 iconfont"></i>
         <i class="icon-zuixiaohua iconfont"></i>
         <i class="icon-zuidahua iconfont"></i>
-        <i class="icon-guanbi iconfont"></i>
+        <i class="icon-guanbi iconfont" @click='closeCloudMusic'></i>
       </div>
     </div>
   </el-header>
@@ -82,20 +82,6 @@ export default {
     SearchTip,
   },
 
-  mounted() {
-    // （折腾点）
-    try {
-      this.userInfo = JSON.parse(window.localStorage.getItem("userOtherInfo"));
-      this.follows = this.userInfo.profile.follows;
-      this.eventCount = this.userInfo.profile.eventCount;
-      this.followeds = this.userInfo.profile.followeds;
-      this.level = this.userInfo.level;
-    } catch (error) {
-      console.log(error.message);
-    }
-
-    this.headerHeight=this.$refs.elHeader.offsetHeight;
-  },
 
   methods: {
     // 防抖搜索(普通)
@@ -145,7 +131,13 @@ export default {
       this.$store.commit("musicPage/changeShowSearch", false);
       this.$store.commit("musicPage/changeShowSongDetail", false);
       
-    }
+    },
+
+      //   关闭网易云应用
+    closeCloudMusic() {
+      this.$store.commit("monitorApp/changMusicState", true);
+      this.$store.commit("opendApp/deleOpendApp", '5');
+    },
   },
 };
 </script>
@@ -180,7 +172,7 @@ export default {
   margin-right: 3.5rem;
   line-height: 3.7rem;
   position: relative;
-  top: 2px;
+  top: .125rem;
 }
 
 .search_box div {

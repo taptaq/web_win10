@@ -172,7 +172,7 @@ export default {
 .recommendSong {
   width: 100%;
   height: 23.75rem;
-  margin-top: 38%;
+  margin-top: 16.375rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -188,7 +188,7 @@ export default {
 
 .recommendSong .recommendList {
   width: 100%;
-  height: 90%;
+  height: 21.375rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -197,16 +197,16 @@ export default {
 }
 
 .recommendSong .recommendList .listItem {
-  width: 17.8%;
-  height: 42%;
-  margin-bottom: 3.75rem;
+  width: 7.6875rem;
+  height: 8rem;
+  margin-bottom: 3.8rem;
 }
 
 .recommendSong .recommendList .listItem .itemImg {
   box-shadow: 0 0 .3125rem #ccc;
   border-radius: .5rem;
-  height: 95%;
-  width: 100%;
+  height: 7.5625rem;
+  width: 7.6875rem;
   margin-bottom: .625rem;
   overflow: hidden;
   position: relative;
@@ -255,7 +255,6 @@ export default {
 
 .recommendSong .recommendList .listItem .itemTitle {
   font-size: .7rem;
-  height: 10%;
   text-align: left;
 }
 
@@ -263,7 +262,7 @@ export default {
 .pushSelf {
   width: 100%;
   height: 12.5rem;
-  margin-top: 12%;
+  margin-top: 4.5rem;
 }
 
 .pushSelf h3 {
@@ -275,8 +274,8 @@ export default {
 }
 
 .pushSelf .pushList {
-  width: 100%;
-  height: 90%;
+  width: 43rem;
+  height: 11.25rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -285,8 +284,8 @@ export default {
 }
 
 .pushSelf .pushList .listItem {
-  width: 32%;
-  height: 62%;
+  width: 13.75rem;
+  height: 7rem;
   margin-bottom: 3.75rem;
 }
 
@@ -327,7 +326,6 @@ export default {
 
 .pushSelf .pushList .listItem .itemTitle {
   font-size: .875rem;
-  height: 10%;
   text-align: left;
 }
 
@@ -335,7 +333,7 @@ export default {
 .newMusic {
   width: 100%;
   height: 12.5rem;
-  margin-top: 5%;
+  margin-top: 3.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -350,8 +348,8 @@ export default {
 }
 
 .newMusic .musicList {
-  width: 100%;
-  height: 90%;
+  width: 43rem;
+  height: 11.25rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -360,8 +358,8 @@ export default {
 }
 
 .newMusic .musicList .listItem {
-  width: 30%;
-  height: 30%;
+  width: 12.875rem;
+  height: 3.5rem;
   margin-bottom: .9375rem;
   display: flex;
   justify-content: flex-start;
@@ -370,8 +368,8 @@ export default {
 .newMusic .musicList .listItem .itemImg {
   box-shadow: 0 0 .3125rem #ccc;
   border-radius: .5rem;
-  height: 100%;
-  width: 24%;
+  height: 3.5rem;
+  width: 3.5rem;
   margin-bottom: .625rem;
   overflow: hidden;
   position: relative;
@@ -406,9 +404,9 @@ export default {
 
 .newMusic .musicList .listItem .itemTitle {
   font-size: .875rem;
-  height: 10%;
   text-align: left;
   line-height: 1.75rem;
+  width:8.5rem
 }
 
 .newMusic .musicList .listItem .itemTitle .songName {
@@ -447,7 +445,7 @@ export default {
 .recommendMV {
   width: 100%;
   height: 14.0625rem;
-  margin-top: 20%;
+  margin: 10rem 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -463,8 +461,8 @@ export default {
 
 
 .recommendMV .MVList {
-  width: 100%;
-  height: 100%;
+  width: 43rem;
+  height: 14.0625rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -473,8 +471,8 @@ export default {
 }
 
 .recommendMV .MVList .listItem {
-  width: 33%;
-  height: 65%;
+  width: 13.4375rem;
+  height: 8.625rem;
   margin-bottom: 3.75rem;
   transform: scale(0.95);
 }
@@ -482,8 +480,8 @@ export default {
 .recommendMV .MVList .listItem .itemImg {
   box-shadow: 0 0 .3125rem #ccc;
   border-radius: .5rem;
-  height: 95%;
-  width: 100%;
+  height: 7.75rem;
+  width: 12.75rem;
   margin-bottom: .625rem;
   overflow: hidden;
   position: relative;

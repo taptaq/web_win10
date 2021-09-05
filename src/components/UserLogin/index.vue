@@ -7,17 +7,22 @@
       </div>
       <p class="username">Taptaq</p>
       <div class="enter_password">
-        <input type="password" placeholder="请输入密码" class="password" />
-        <router-link tag="div" to="/desk" class="enter">
+        <input type="password" v-model="password" placeholder="请输入密码" class="password" />
+        <router-link tag="div" class="enter" to="/desk">
           <i class="icon-forward iconfont"></i>
         </router-link>
       </div>
+
+      <div class="passwordTip">密码提示：123456</div>
     </div>
 
     <!--菜单栏-->
     <div class="login_menu">
       <i class="icon-tubiaohezi-hisxitongtubiao- iconfont"></i>
-      <i class="icon-suoping iconfont"></i>
+      <router-link to="/login/lock">
+        <i class="icon-suoping iconfont"></i>
+      </router-link>
+
       <i class="icon-guanji iconfont"></i>
     </div>
   </div>
@@ -26,6 +31,23 @@
 <script>
 export default {
   name: "userLogin",
+  data() {
+    return {
+      password: "",
+    };
+  },
+
+  // 离开该登录组件前，要先校验密码是否正确，正确才可跳转到桌面
+  beforeRouteLeave(to, from, next) {
+    if (to.path==='/desk' && this.password === "123456") {
+      next();
+    }else if(to.path==='/login/lock'){
+      next();
+    }
+     else {
+      this.$message.error("密码错误");
+    }
+  },
 };
 </script>
 
@@ -71,7 +93,7 @@ export default {
 .login_wrap .username {
   color: #fff;
   margin-top: -0.3125rem;
-  margin-bottom: .9375rem;
+  margin-bottom: 0.9375rem;
   font-size: 1.25rem;
 }
 
@@ -82,7 +104,7 @@ export default {
 
 .login_wrap .password {
   width: 12.5rem;
-  padding: .625rem;
+  padding: 0.625rem;
   outline: none;
   border: none;
   padding-right: 1.25rem;
@@ -94,7 +116,7 @@ export default {
   bottom: 0;
   color: #fff;
   background: rgb(87, 78, 78);
-  padding: 0 .3125rem;
+  padding: 0 0.3125rem;
   cursor: pointer;
 }
 
@@ -106,7 +128,7 @@ export default {
 .login_menu {
   position: absolute;
   right: 2.5rem;
-  bottom: .5rem;
+  bottom: 0.5rem;
   width: 5rem;
   display: flex;
   justify-content: space-evenly;
@@ -115,6 +137,13 @@ export default {
 .login_menu i {
   color: #fff;
   font-size: 1.5625rem;
-  margin:0 0.5rem;
+  margin: 0 0.5rem;
+}
+
+/*密码提示*/
+.passwordTip {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  margin-top: 10px;
 }
 </style>

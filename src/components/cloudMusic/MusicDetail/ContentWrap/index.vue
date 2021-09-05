@@ -291,7 +291,6 @@ export default {
         this.$refs.topCommentArea.classList.add("disappear");
         let distance =
           this.$refs.songTitle.offsetHeight + this.$refs.center.offsetHeight;
-
         this.scrollDis = this.$refs.contentWrap.offsetHeight;
         let timer = setInterval(() => {
           if (this.scrollDis <= distance - 60) {
@@ -349,11 +348,9 @@ export default {
         // 当前索引没有超出歌词索引的范围，且当前播放时间大于歌词对应的时间时，当前索引加1，跳到下一句歌词
         if (lyricIndex < this.lyric.length - 1 && currentTime > item[0]) {
           lyricIndex += 1;
-
-          return currentTime <= item[0]; //当前播放时间小于歌词对应的时间，当前索引不变，还继续停留在该歌词上
         }
+        return currentTime <= item[0]; //当前播放时间小于歌词对应的时间，当前索引不变，还继续停留在该歌词上
       });
-      // console.log(lyricsIndex);
       this.lyricIndex = lyricIndex;
     },
 
@@ -442,8 +439,8 @@ export default {
 .contentWrap {
   width: 100%;
   height: auto;
-  margin: 30px 0;
-  margin-top: 20px;
+  margin: 1.875rem 0;
+  margin-top: 1.25rem;
   text-align: center;
   overflow: auto;
   transition: all 0.2s;
@@ -454,7 +451,7 @@ export default {
 }
 
 .contentWrap .topArea {
-  padding: 12px 0;
+  padding: 0.75rem 0;
 }
 
 .contentWrap .topArea.danmu {
@@ -468,7 +465,7 @@ export default {
 }
 
 .contentWrap .topArea.danmu .songTitle {
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 
 .contentWrap .topArea.danmu .songTitle.shelter {
@@ -482,34 +479,34 @@ export default {
 }
 
 .contentWrap .songTitle p:first-child {
-  font-size: 30px;
+  font-size: 1.875rem;
 }
 
 .contentWrap .songTitle p:last-child {
-  font-size: 15px;
-  margin-top: 5px;
+  font-size: 0.9375rem;
+  margin-top: 0.3125rem;
 }
 
 /*中间部分 */
 .contentWrap .center {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 40px;
+  margin-top: 2.5rem;
 }
 
 /*专辑转动部分*/
 .contentWrap .center .albumImg {
-  width: 220px;
-  height: 220px;
+  width: 13.75rem;
+  height: 13.75rem;
   border-radius: 50%;
   position: relative;
-  border: 10px solid rgb(185, 163, 163);
+  border: 0.625rem solid rgb(185, 163, 163);
   box-sizing: border-box;
-  margin-left: -40px;
+  margin-left: -2.5rem;
 }
 
 .discContainer {
-  margin-top: 55px;
+  margin-top: 3.4375rem;
   position: relative;
 }
 
@@ -517,11 +514,11 @@ export default {
   position: relative;
   left: 50%;
   top: -25%;
-  width: 88px;
-  height: 72px;
-  z-index: 10000;
+  width: 5.5rem;
+  height: 4.5rem;
+  z-index: 100;
   transition: all 1s;
-  transform-origin: 5.3px 5.3px;
+  transform-origin: 0.33125rem 0.33125rem;
 }
 
 .needle img {
@@ -529,15 +526,15 @@ export default {
 }
 
 .needleRotate {
-  transform-origin: 5.3px 5.3px;
+  transform-origin: 0.33125rem 0.33125rem;
   transform: rotate(22deg);
 }
 
 .disc {
-  width: 200px;
-  height: 200px;
+  width: 12.5rem;
+  height: 12.5rem;
   position: relative;
-  top: -72px;
+  top: -4.5rem;
 }
 
 .disc img:nth-child(1) {
@@ -546,9 +543,9 @@ export default {
 
 .disc .musicAvatar {
   position: absolute;
-  top: 32px;
-  left: 30px;
-  width: 138px;
+  top: 2rem;
+  left: 1.875rem;
+  width: 8.625rem;
   z-index: -1;
 }
 
@@ -570,11 +567,11 @@ export default {
 
 .contentWrap .center .songWords {
   width: 34%;
-  height: 260px;
+  height: 16.25rem;
   overflow: auto;
-  padding: 10px 50px;
+  padding: 0.625rem 3.125rem;
   position: relative;
-  left: -40px;
+  left: -2.5rem;
 }
 
 .contentWrap .center .songWords::-webkit-scrollbar {
@@ -583,8 +580,8 @@ export default {
 
 .contentWrap .topArea.danmu .center .songWords {
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  box-shadow: 0 0 5px #ccc;
+  border-radius: 0.625rem;
+  box-shadow: 0 0 0.3125rem #ccc;
 }
 
 .contentWrap .center .songWords .lyricWrap {
@@ -598,35 +595,35 @@ export default {
 }
 
 .contentWrap .center .songWords .lyric {
-  font-size: 14px;
-  height: 45px;
+  font-size: 0.875rem;
+  height: 2.8125rem;
 }
 
 .contentWrap .topArea.danmu .center .songWords .lyric.lyricActive {
   font-weight: 800;
-  font-size: 17px;
-  text-shadow: 0 0 5px rgb(160, 123, 123);
+  font-size: 1.0625rem;
+  text-shadow: 0 0 0.3125rem rgb(160, 123, 123);
   color: #ccc;
 }
 
 .contentWrap .center .songWords .lyric.lyricActive {
   font-weight: 700;
-  font-size: 17px;
-  text-shadow: 0 0 10px #ccc;
+  font-size: 1.0625rem;
+  text-shadow: 0 0 0.625rem #ccc;
 }
 
 .contentWrap .center .model h3 {
-  font-size: 25px;
+  font-size: 1.5625rem;
   font-weight: 800;
 }
 
 .contentWrap .center .model div {
-  margin: 12px 0;
-  width: 100px;
-  padding: 10px;
-  border-radius: 20px;
+  margin: 0.75rem 0;
+  width: 6.25rem;
+  padding: 0.625rem;
+  border-radius: 1.25rem;
   cursor: pointer;
-  box-shadow: 0 0 8px rgb(163, 149, 149);
+  box-shadow: 0 0 0.5rem rgb(163, 149, 149);
   transition: all 0.3s;
   z-index: 1;
   position: relative;
@@ -636,25 +633,25 @@ export default {
 .contentWrap .center .model div.active {
   background: rgb(211, 61, 61);
   color: #fff;
-  box-shadow: 0 0 10px rgb(139, 120, 120);
+  box-shadow: 0 0 0.625rem rgb(139, 120, 120);
 }
 
 /*评论部分 */
 .contentWrap .comment {
-  margin-top: 50px;
+  margin-top: 3.125rem;
   width: 50%;
-  margin: 60px auto;
+  margin: 3.75rem auto;
   text-align: left;
-  padding: 2px 5px;
+  padding: 0.125rem 0.3125rem;
 }
 
 .contentWrap .comment .commentWrap {
-  font-size: 12px;
-  margin-top: 10px;
+  font-size: 0.75rem;
+  margin-top: 0.625rem;
 }
 
 .contentWrap .comment .commentWrap .commentNum {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
@@ -666,10 +663,10 @@ export default {
 .contentWrap .comment .commentWrap .userImg {
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 12px;
-  width: 38px;
-  height: 38px;
-  box-shadow: 0 0 8px rgb(177, 165, 165);
+  margin-right: 0.75rem;
+  width: 2.375rem;
+  height: 2.375rem;
+  box-shadow: 0 0 0.5rem rgb(177, 165, 165);
 }
 
 .contentWrap .comment .commentWrap .userImg img {
@@ -678,15 +675,15 @@ export default {
 }
 
 .contentWrap .comment .commentWrap .moreComment {
-  width: 140px;
-  height: 40px;
-  margin: 18px auto;
+  width: 8.75rem;
+  height: 2.5rem;
+  margin: 1.125rem auto;
   text-align: center;
-  line-height: 40px;
-  border-radius: 20px;
-  font-size: 14px;
+  line-height: 2.5rem;
+  border-radius: 1.25rem;
+  font-size: 0.875rem;
   cursor: pointer;
-  box-shadow: 0 0 10px rgb(199, 193, 193);
+  box-shadow: 0 0 0.625rem rgb(199, 193, 193);
   background: rgba(255, 255, 255, 0.6);
   transition: all 0.3s;
 }
@@ -708,9 +705,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 5px;
-  border-bottom: 1px solid #ccc;
-  padding: 8px 0;
+  margin: 0.3125rem;
+  border-bottom: 0.0625rem solid #ccc;
+  padding: 0.5rem 0;
 }
 
 .contentWrap .comment .commentContent {
@@ -728,15 +725,15 @@ export default {
   height: auto;
   line-height: 1.8;
   background: #ccc;
-  padding: 5px 10px;
-  border-radius: 8px;
-  margin: 3px 0;
+  padding: 0.3125rem 0.625rem;
+  border-radius: 0.5rem;
+  margin: 0.1875rem 0;
 }
 
 .contentWrap .comment .commentContent .otherMsg {
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
+  margin-top: 0.3125rem;
 }
 
 .contentWrap .comment .commentContent .otherMsg .date {
@@ -744,12 +741,12 @@ export default {
 }
 
 .contentWrap .comment .commentContent .otherMsg .menu {
-  width: 116px;
+  width: 7.25rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   position: relative;
-  top: -5px;
+  top: -0.3125rem;
 }
 
 .contentWrap .comment .commentContent .otherMsg .menu span {
@@ -759,7 +756,7 @@ export default {
 }
 
 .contentWrap .comment .commentContent .otherMsg .menu span:first-child {
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 .contentWrap .comment .commentContent .otherMsg .menu span:first-child i {
@@ -782,18 +779,18 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-top: 36px;
+  margin-top: 2.25rem;
 }
 
 .contentWrap .comment .newComment .newTitle {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 700;
 }
 
 /*分页 */
 .el-pagination {
   margin: 0 auto;
-  margin-top: 28px;
+  margin-top: 1.75rem;
 }
 
 .el-pagination.is-background .el-pager li:not(.disabled).active {
@@ -803,7 +800,7 @@ export default {
 
 .noSong {
   text-align: center;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 800;
   position: absolute;
   left: 50%;
@@ -818,7 +815,7 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  height: 450px;
+  height: 28.125rem;
 }
 
 .barrageWrap .barrage {
@@ -826,13 +823,13 @@ export default {
   width: 100%;
   position: relative;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 3.125rem;
 }
 
 .barrageWrap .barrage .barrage-control {
   text-align: center;
   position: absolute;
-  bottom: 0;
+  bottom: 0.625rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -845,6 +842,6 @@ export default {
 }
 
 .colorSele {
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 </style>

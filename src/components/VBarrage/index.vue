@@ -297,14 +297,14 @@ export default {
     cursor: pointer;
     display: inline-block;
     will-change: transform;
-    font-size: 18px;
+    font-size: 1.125rem;
     color: #fff;
     font-family: SimHei, "Microsoft JhengHei", Arial, Helvetica, sans-serif;
     line-height: 1.125;
     opacity: 1;
     background: rgba(255, 255, 255, 0.5);
-    padding: 5px 10px;
-    border-radius: 10px;
+    padding: .3125rem .625rem;
+    border-radius: .625rem;
     &:hover {
       color: red;
       animation-play-state: paused !important;
@@ -316,12 +316,10 @@ export default {
     z-index: 100;
   }
   .barrage-main {
-    /* border: 2px solid blue; */
     width: 100%;
     height: 85%;
     position: relative;
     overflow: hidden;
-    // background: #000;
   }
   .barrage-main-dm {
     position: absolute;
@@ -332,9 +330,14 @@ export default {
   }
 }
 .self-dm {
-  border: 5px solid #2ba8da;
+  border: .3125rem solid #2ba8da;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.9);
+  &:hover {
+    color: red;
+    animation-play-state: paused !important;
+    z-index: 150;
+  }
 }
 @keyframes barrage-run {
   0% {

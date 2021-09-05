@@ -1,10 +1,15 @@
 <template>
   <el-main>
     <div class="main_wrap">
-      <IndexPage v-if="$store.state.musicPage.showIndexPage" />
-      <PersonalPage v-else-if="$store.state.musicPage.showPersonalPage" />
-      <MoreHotComment v-else-if="$store.state.musicPage.showMoreComments" />
-      <SearchResult v-show="$store.state.musicPage.showSearchResult" />
+      <transition
+        enter-active-class="animate__animated animate__fadeIn"
+        leave-active-class="animate__animated animate__fadeOut"
+      >
+        <IndexPage v-if="$store.state.musicPage.showIndexPage" />
+        <PersonalPage v-else-if="$store.state.musicPage.showPersonalPage" />
+        <MoreHotComment v-else-if="$store.state.musicPage.showMoreComments" />
+        <SearchResult v-show="$store.state.musicPage.showSearchResult" />
+      </transition>
     </div>
   </el-main>
 </template>

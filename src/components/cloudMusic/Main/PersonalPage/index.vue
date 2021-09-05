@@ -40,7 +40,7 @@
         <div class="address">
           <div class="area">
             <span>所在地区：</span>
-            <span>四川省成都市</span>
+            <span>{{personalData.profile.province}}省{{personalData.profile.city}}市</span>
           </div>
           <div class="communication">
             <span>社交网络：</span>
@@ -58,7 +58,7 @@
     <div class="songsList">
       <div>
         我创建的歌单
-        <span>(2)</span>
+        <span>({{personalData.profile.playlistCount}})</span>
       </div>
 
       <div class="listWrap">
@@ -70,7 +70,7 @@
             </div>
           </div>
           <p>我的听歌排行</p>
-          <p>累计听歌1025首</p>
+          <p>累计听歌{{personalData.listenSongs}}首</p>
         </div>
         <div class="item" v-for="item in userSongList" :key="item.id">
           <div class="img">
@@ -107,6 +107,7 @@ export default {
       );
 
       this.getUserSongList();
+      // console.log(this.personalData);
     } catch (error) {
       console.log(error.message);
     }
@@ -137,8 +138,8 @@ export default {
 }
 
 .personalWrap .personalMsg .avatar {
-  width: 180px;
-  height: 180px;
+  width: 11.25rem;
+  height: 11.25rem;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -153,7 +154,7 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   text-align: left;
-  margin-left: 20px;
+  margin-left: 1.25rem;
   width: 70%;
 }
 
@@ -162,37 +163,37 @@ export default {
 }
 
 .personalWrap .personalMsg .detailMsg .username {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 600;
 }
 
 .personalWrap .personalMsg .detailMsg .baseMsg {
   position: relative;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 5px;
+  padding-bottom: 0.625rem;
+  border-bottom: 0.0625rem solid #ccc;
+  margin-bottom: 0.3125rem;
 }
 
 .personalWrap .personalMsg .detailMsg .baseMsg span {
-  margin-right: 10px;
+  margin-right: 0.625rem;
   display: inline-block;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .personalWrap .personalMsg .detailMsg .baseMsg span:first-child {
-  padding: 1px 10px;
+  padding: 0.0625rem 0.625rem;
   background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }
 
 .personalWrap .personalMsg .detailMsg .baseMsg span:last-child {
   position: absolute;
   right: 0;
-  top: -6px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  padding: 3px 12px;
-  font-size: 14px;
-  border-radius: 15px;
+  top: -0.375rem;
+  border: 0.0625rem solid rgba(0, 0, 0, 0.5);
+  padding: 0.1875rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.9375rem;
   cursor: pointer;
 }
 
@@ -201,12 +202,12 @@ export default {
 }
 
 .personalWrap .personalMsg .detailMsg .baseMsg span:last-child i {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .personalWrap .personalMsg .detailMsg .baseMsg i {
   position: relative;
-  top: 1px;
+  top: 0.0625rem;
 }
 
 .personalWrap .personalMsg div.menu {
@@ -214,7 +215,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .personalWrap .menu div {
@@ -223,27 +224,27 @@ export default {
 }
 
 .personalWrap .menu i {
-  font-size: 48px;
+  font-size: 3rem;
   color: rgba(0, 0, 0, 0.1);
 }
 
 .personalWrap .menu div p:first-child {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .personalWrap .personalMsg .detailMsg .address {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .personalWrap .personalMsg .detailMsg .address div {
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 0.1875rem;
 }
 
 /*我的歌单 */
 .songsList {
   width: 100%;
-  margin-top: 50px;
+  margin-top: 3.125rem;
 }
 .songsList div {
   text-align: left;
@@ -253,7 +254,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 
 .songsList .listWrap .item:first-child .img {
@@ -268,20 +269,20 @@ export default {
 }
 
 .songsList .listWrap div {
-  margin-right: 16px;
-  font-size: 12px;
+  margin-right: 1rem;
+  font-size: 0.75rem;
   width: 22%;
-  margin-bottom: 160px;
+  margin-bottom: 10rem;
   cursor: pointer;
   overflow: hidden;
 }
 
 .songsList .listWrap div .img {
-  width: 100%;
-  height: 74%;
+  width: 9.4rem;
+  height: 9rem;
   background: #ccc;
-  border-radius: 5px;
-  margin-bottom: 5px;
+  border-radius: 0.3125rem;
+  margin-bottom: 0.3125rem;
   position: relative;
 }
 
@@ -292,6 +293,7 @@ export default {
   color: #fff;
   font-size: 0.75rem;
   text-shadow: 0 0 0.5rem rgb(90, 82, 82);
+  width: 2.1875rem;
 }
 
 .songsList .listWrap div .img .playCount i {

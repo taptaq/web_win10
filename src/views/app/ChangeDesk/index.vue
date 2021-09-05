@@ -1,49 +1,54 @@
 <template>
-    <div class="changDesk_body" v-if="!$store.state.monitorApp.changeDeskAppClose" @mousedown='move'>
-      <div class="header">
-        <img src="@/assets/changeDeskbg.png" alt />
-        <span>主题壁纸</span>
-        <div class="closeSetting">
-          <div class="minimize">
-            <i class="icon-zuixiaohua iconfont"></i>
-          </div>
-          <div class="maxsize">
-            <i class="icon-zuidahua iconfont"></i>
-          </div>
-          <div class="close">
-            <i class="icon-guanbi iconfont" @click="closeDeskBg"></i>
-          </div>
+  <div
+    class="changDesk_body"
+    ref="changDeskBody"
+    v-if="!$store.state.monitorApp.changeDeskAppClose"
+    @mousedown="move"
+  >
+    <div class="header">
+      <img src="@/assets/changeDeskbg.png" alt />
+      <span>主题壁纸</span>
+      <div class="closeSetting">
+        <div class="minimize">
+          <i class="icon-zuixiaohua iconfont"></i>
         </div>
-      </div>
-
-      <div class="content_wrapper">
-        <div class="curBg">
-          <span>当前壁纸</span>
-          <img :src="$store.state.deskBg.curBg" alt />
+        <div class="maxsize">
+          <i class="icon-zuidahua iconfont"></i>
         </div>
-
-        <div class="selectBg">
-          <span>可选壁纸</span>
-          <div class="select_bg_wrap">
-            <div class="img" v-for="item in selectBg" :key="item.id" @click="changeDeskBg">
-              <img :src="item.src" alt />
-            </div>
-
-            <button class="localsele btn">
-              <input type="file" @change="selectLocal" />
-              <span class="localWrite">从本地选择</span>
-            </button>
-
-            <el-button round class="btn">
-              <a
-                target="_blank"
-                href="https://image.baidu.com/search/index?ct=&z=&tn=baiduimage&ipn=r&word=%E5%A3%81%E7%BA%B8&pn=0&istype=2&ie=utf-8&oe=utf-8&cl=&lm=-1&st=-1&fr=&fmq=1526269427171_R&ic=0&se=&sme=&width=1680&height=1050&face=0"
-              >前往图片库</a>
-            </el-button>
-          </div>
+        <div class="close">
+          <i class="icon-guanbi iconfont" @click="closeDeskBg"></i>
         </div>
       </div>
     </div>
+
+    <div class="content_wrapper">
+      <div class="curBg">
+        <span>当前壁纸</span>
+        <img :src="$store.state.deskBg.curBg" alt />
+      </div>
+
+      <div class="selectBg">
+        <span>可选壁纸</span>
+        <div class="select_bg_wrap">
+          <div class="img" v-for="item in selectBg" :key="item.id" @click="changeDeskBg">
+            <img :src="item.src" alt />
+          </div>
+
+          <button class="localsele btn">
+            <input type="file" @change="selectLocal" />
+            <span class="localWrite">从本地选择</span>
+          </button>
+
+          <el-button round class="btn">
+            <a
+              target="_blank"
+              href="https://image.baidu.com/search/index?ct=&z=&tn=baiduimage&ipn=r&word=%E5%A3%81%E7%BA%B8&pn=0&istype=2&ie=utf-8&oe=utf-8&cl=&lm=-1&st=-1&fr=&fmq=1526269427171_R&ic=0&se=&sme=&width=1680&height=1050&face=0"
+            >前往图片库</a>
+          </el-button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -63,7 +68,31 @@ export default {
       });
   },
 
+  watch: {
+       // 监听主题壁纸应用的打开状态，修改其层级
+    "$store.state.monitorApp.changeDeskAppClose"(state) {
+      this.controlZIndex(state);
+    },
+  },
+
+
   methods: {
+    // 控制zindex层级
+    controlZIndex(state) {
+      try {
+        //  若主题壁纸应用已经打开了，改变其层级，新打开的永远在最上层
+        if (!state) {
+          this.$nextTick(() => {
+            // console.log("主题已经打开了");
+            this.$store.commit("monitorApp/changeZIndex", 1);
+            this.$refs.changDeskBody.style.zIndex = this.$store.state.monitorApp.zIndex;
+          });
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+
     //   改变壁纸
     changeDeskBg(e) {
       localStorage.setItem("deskBg", e.target.src);
@@ -73,12 +102,13 @@ export default {
     //   关闭主题壁纸应用
     closeDeskBg() {
       this.$store.commit("monitorApp/changDeskState", true);
-      this.$store.commit("opendApp/deleOpendApp", '3');
+      this.$store.commit("opendApp/deleOpendApp", "3");
     },
 
     // 应用的拖拽
     move(e) {
       let odiv = e.target.parentNode;
+      this.$refs.changDeskBody.style.zIndex=this.$refs.changDeskBody.style.zIndex+1;
       if (e.target.className === "header") {
         let disX = e.clientX - odiv.offsetLeft;
         let disY = e.clientY - odiv.offsetTop;
@@ -92,8 +122,8 @@ export default {
             left = odiv.offsetWidth / 2;
           } else if (top >= document.body.offsetHeight - 70) {
             top = document.body.offsetHeight - 70;
-          } else if (left >= document.body.offsetWidth - odiv.offsetWidth/2) {
-            left = document.body.offsetWidth - odiv.offsetWidth/2;
+          } else if (left >= document.body.offsetWidth - odiv.offsetWidth / 2) {
+            left = document.body.offsetWidth - odiv.offsetWidth / 2;
           }
 
           odiv.style.left = left + "px";
@@ -133,7 +163,6 @@ export default {
   border-radius: 0.3125rem;
   box-shadow: 0 0 0.625rem #ccc;
   padding: 0.3125rem;
-  z-index: 1000;
 }
 
 .changDesk_body .header {

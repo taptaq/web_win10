@@ -14,6 +14,11 @@
 <script>
 export default {
   name: "closeSys",
+  mounted() {
+    setTimeout(() => {
+      this.$router.push('/');
+    }, 5000);
+  },
 };
 </script>
 
@@ -87,11 +92,11 @@ export default {
 
 /*小圆点加载 */
 .load-wrapp {
-  width: 150px;
-  height: 100px;
-  margin: 0 10px 10px 0;
-  padding: 20px 20px 20px;
-  border-radius: 5px;
+  width: 9.375rem;
+  height: 6.25rem;
+  margin: 0 0.625rem 0.625rem 0;
+  padding: 1.25rem 1.25rem 1.25rem;
+  border-radius: 0.3125rem;
   text-align: center;
   position: absolute;
   left: 57%;
@@ -104,12 +109,12 @@ export default {
 
 .line {
   display: inline-block;
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
-  background-color: rgb(223, 199, 199);
-  margin-right: 10px;
-  box-shadow: 0 0 5px #fff;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  border-radius: 0.9375rem;
+  background-color: rgba(255, 255, 255, 0.75);
+  margin-right: 0.625rem;
+  box-shadow: 0 0 0.3125rem #fff;
 }
 
 .dot_loading .line:nth-last-child(1) {
@@ -127,7 +132,7 @@ export default {
     transform: translate(0, 0);
   }
   50% {
-    transform: translate(0, 15px);
+    transform: translate(0, 0.9375rem);
   }
   100% {
     transform: translate(0, 0);

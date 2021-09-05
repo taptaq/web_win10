@@ -84,7 +84,7 @@
     <el-drawer
       :visible.sync="showDrawer"
       :with-header="false"
-      width="300"
+      :size="'32%'"
       :modal="false"
       :direction="direction"
     >
@@ -232,7 +232,7 @@ export default {
         // 没有对应的url资源
         if (this.musicUrl == null) {
           this.$message.error("该歌曲暂无版权，将为您播放下一首歌曲");
-          // this.changeMusic("next");   //切换下一首
+          this.changeMusic("next");   //切换下一首
           return;
         }
         // 音乐加载完成
@@ -472,15 +472,15 @@ export default {
 /*播放歌单*/
 .el-drawer.rtl,
 .el-drawer__container {
-  height: calc(100vh - 194px);
+  height: calc(100vh - 14rem);
   position: fixed;
-  top: 61px;
+  top: 2.5rem;
   z-index:1000
 
 }
 
 .el-drawer {
-  border-radius: 10px;
+  border-radius: .625rem;
   box-shadow: 0 0 0 #fff;
 }
 
@@ -494,7 +494,6 @@ export default {
 }
 
 .el-drawer .el-table__body-wrapper {
-  height: 330px;
   overflow: auto;
 }
 
@@ -508,11 +507,11 @@ export default {
 
 .el-drawer .el-table td,
 .el-table th {
-  padding: 5px 0;
+  padding: .5rem 0;
 }
 
 .el-slider__button-wrapper {
-  height: 4px;
+  height: .25rem;
 }
 
 body .el-table .el-table__row .currentRow {
@@ -523,9 +522,6 @@ body .el-table .el-table__row .currentRow {
   bottom: auto;
 }
 
-.rtl {
-  width: 300px;
-}
 </style>
 
 <style scoped>
@@ -550,7 +546,7 @@ body .el-table .el-table__row .currentRow {
 }
 
 .el-footer .left div:first-child {
-  width: 142%;
+  width: 25rem;
   display: flex;
   align-items: center;
   position: relative;
@@ -562,7 +558,7 @@ body .el-table .el-table__row .currentRow {
 }
 
 .el-footer .left .img {
-  width: 7.6rem;
+  width: 7.8rem;
   height: 3.125rem;
   border-radius: 0.625rem;
   overflow: hidden;
@@ -574,20 +570,20 @@ body .el-table .el-table__row .currentRow {
 
 .el-footer .left .img .imgMc {
   position: absolute;
-  width: 96%;
-  height: 101%;
-  top: 1px;
-  left: 1px;
+  width: 3rem;
+  height: 3.125rem;
+  top: .0625rem;
+  left: .0625rem;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 0.625rem;
   text-align: center;
-  line-height: 48px;
+  line-height: 3rem;
   opacity: 0;
   transition: all 0.3s;
 }
 
 .el-footer .left .img .imgMc i {
-  font-size: 26px;
+  font-size: 1.625rem;
   color: #fff;
 }
 
@@ -597,7 +593,7 @@ body .el-table .el-table__row .currentRow {
 }
 
 .el-footer .left .songMsg {
-  margin-left: 15px;
+  margin-left: .9375rem;
   width: 176rem;
 }
 
@@ -618,24 +614,24 @@ body .el-table .el-table__row .currentRow {
 
 /*歌曲详情页的尾部 */
 .el-footer .left span {
-  margin-right: 20px;
+  margin-right: 1.25rem;
 }
 
 .el-footer .left span:first-child i {
-  font-size: 25px;
+  font-size: 1.5625rem;
   position: relative;
-  left: -3px;
+  left: -0.1875rem;
 }
 
 .el-footer .left span:not(:first-child) {
   display: inline-block;
-  border: 1px solid #ccc;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
+  border: .0625rem solid #ccc;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
   border-radius: 50%;
   text-align: center;
-  box-shadow: 0 0 8px #ccc;
+  box-shadow: 0 0 .5rem #ccc;
 }
 
 .el-footer .left span:not(:first-child):hover {
@@ -644,7 +640,7 @@ body .el-table .el-table__row .currentRow {
 
 
 .el-footer .center {
-  width: 40%;
+  width: 22.1875rem;
   position: relative;
   left: -1.25rem;
   display: flex;
@@ -662,9 +658,9 @@ body .el-table .el-table__row .currentRow {
 
 .el-footer .center .controls .icon-zantingtingzhi,
 .el-footer .center .controls .icon-bofang {
-  font-size: 22px;
+  font-size: 1.375rem;
   position: relative;
-  top: -2px;
+  top: -0.125rem;
 }
 
 .el-footer .center .controls i {
@@ -690,18 +686,18 @@ body .el-table .el-table__row .currentRow {
 
 /*音量弹出框 */
 .volumeWrap {
-  width: 30px;
-  height: 100px;
+  width: 1.875rem;
+  height: 6.25rem;
   opacity: 0;
   position: absolute;
-  left: 78px;
-  top: -75px;
+  left: 5.2rem;
+  top: -5rem;
   background: #fff;
   display: flex;
   justify-content: center;
-  border-radius: 10px;
-  padding: 8px 5px;
-  box-shadow: 0 0 8px #ccc;
+  border-radius: .625rem;
+  padding: .5rem .3125rem;
+  box-shadow: 0 0 .5rem #ccc;
   transition: opacity 0.5s;
 }
 
@@ -713,22 +709,22 @@ body .el-table .el-table__row .currentRow {
 .el-footer .center .progressBar {
   display: flex;
   align-items: center;
-  height: 10px;
-  margin-top: -2px;
+  height: .625rem;
+  margin-top: -0.125rem;
 }
 
 .el-footer .center .progressBar .currentTime,
 .el-footer .center .progressBar .totalTime {
-  font-size: 12px;
+  font-size: .75rem;
   transform: scale(0.85);
   color: #aaa;
-  margin: 0 5px;
-  width: 30px;
+  margin: 0 .3125rem;
+  width: 1.875rem;
   text-align: center;
 }
 
 .el-footer .right {
-  width: 16%;
+  width:10rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -743,6 +739,8 @@ body .el-table .el-table__row .currentRow {
   position: relative;
   right: 0.5rem;
   top: 0.0625rem;
+  text-align: center;
+  width: 2.375rem;
 }
 
 .el-footer .right i {
@@ -752,15 +750,15 @@ body .el-table .el-table__row .currentRow {
 
 /*播放歌单*/
 .drawerHeader {
-  font-size: 14px;
+  font-size: .875rem;
   transform: scale(0.9);
   color: #aaa;
-  padding: 15px 0;
+  padding: .9375rem 0;
 }
 
 .drawerHeader p:first-child {
-  font-size: 22px;
-  margin-bottom: 5px;
+  font-size: 1.375rem;
+  margin-bottom: .3125rem;
   color: #000;
   font-weight: 800;
 }

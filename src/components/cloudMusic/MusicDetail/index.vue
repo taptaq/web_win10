@@ -34,7 +34,7 @@ export default {
   width: 100%;
   height: 87%;
   background: linear-gradient(#ccc, white);
-  z-index: 0;
+  z-index: 1;
   overflow: auto;
 }
 

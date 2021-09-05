@@ -1,7 +1,7 @@
 <template>
   <div class="moreHotCommentWrap">
     <h3>精彩评论</h3>
-    <div class="hotComment" v-loading="loading" v-loading.fullscreen.lock="fullscreenLoading">
+    <div class="hotComment" v-loading="loading">
       <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto" :infinite-scroll-delay="1000" >
         <li class="commentItem" v-for="item in hotCommentData" :key="item.commentId">
           <div class="userImg">
@@ -35,6 +35,8 @@
         </li>
       </ul>
     </div>
+
+    <div class='finally' v-show="showFinally">到底啦~</div>
   </div>
 </template>
 
@@ -45,12 +47,21 @@ export default {
     return {
       hotCommentData: [],
       count: 1,
-      loading: true
+      loading: true,
+      showFinally:false,
+      flash:false   //当前音乐改变，则重新更新评论
     };
   },
   mounted() {
     this.getComment(this.$store.state.musicPlay.curMusicId);
   },
+
+  watch:{
+    "$store.state.musicPlay.curMusicId"(curMusicId){
+      this.flash=true;
+      this.getComment(curMusicId);
+    }
+  },  
 
   methods: {
     load() {
@@ -68,13 +79,16 @@ export default {
         if (res.data.code !== 200) {
           this.$message.error("获取评论失败,请稍后重试!");
         }
-      if (this.count === 0) {
+      if (this.count === 0 || this.flash) {
         this.hotCommentData = res.data.hotComments;
       }
       this.loading=false;
       res.data.hotComments.forEach((item) => {
         this.hotCommentData.push(item);
       });
+      if(res.data.hotComments.length===0){
+          this.showFinally=true;
+      }
     },
   },
 };
@@ -84,22 +98,23 @@ export default {
 .moreHotCommentWrap {
   width: 100%;
   text-align: left;
-  font-size: 12px;
+  font-size: .75rem;
+  margin-bottom: 3.125rem;
 }
 
 .moreHotCommentWrap h3 {
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 800;
-  margin-bottom: 10px;
+  margin-bottom: .625rem;
 }
 
 .hotComment .userImg {
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 12px;
-  width: 38px;
-  height: 38px;
-  box-shadow: 0 0 8px rgb(177, 165, 165);
+  margin-right: .75rem;
+  width: 2.375rem;
+  height: 2.375rem;
+  box-shadow: 0 0 .5rem rgb(177, 165, 165);
 }
 
 .hotComment .userImg img {
@@ -121,9 +136,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 5px;
-  border-bottom: 1px solid #ccc;
-  padding: 8px 0;
+  margin: .3125rem;
+  border-bottom: .0625rem solid #ccc;
+  padding: .5rem 0;
 }
 
 .hotComment .commentContent .username,
@@ -137,15 +152,15 @@ export default {
   height: auto;
   line-height: 1.8;
   background: #ccc;
-  padding: 5px 10px;
-  border-radius: 8px;
-  margin: 3px 0;
+  padding: .3125rem .625rem;
+  border-radius: .5rem;
+  margin: .1875rem 0;
 }
 
 .hotComment .commentContent .otherMsg {
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
+  margin-top: .3125rem;
 }
 
 .hotComment .commentContent .otherMsg .date {
@@ -153,12 +168,12 @@ export default {
 }
 
 .hotComment .commentContent .otherMsg .menu {
-  width: 116px;
+  width: 7.25rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   position: relative;
-  top: -5px;
+  top: -0.3125rem;
 }
 
 .hotComment .commentContent .otherMsg .menu span {
@@ -168,7 +183,7 @@ export default {
 }
 
 .hotComment .commentContent .otherMsg .menu span:first-child {
-  font-size: 13px;
+  font-size: .8125rem;
 }
 
 .hotComment .commentContent .otherMsg .menu span:first-child i {
@@ -184,5 +199,11 @@ export default {
   span:first-child.active
   i {
   color: red;
+}
+
+.finally{
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 5px;
 }
 </style>

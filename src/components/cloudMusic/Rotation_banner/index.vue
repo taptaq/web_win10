@@ -158,11 +158,12 @@ export default {
 .banner-box .wrapper {
   width: 100%;
   height: 100%;
+  margin-top:1.25rem;
 }
 
 .banner-box .wrapper .slide {
-  width: 66%;
-  height: 100%;
+  width: 23.75rem;
+  height: 11.25rem;
   position: absolute;
   left: 50%;
   transform: translateX(-50%) scale(0.7);
@@ -199,10 +200,10 @@ export default {
 }
 
 .banner-box .arrow.arrow-left {
-  left: 3.5rem;
+  left: 3.8rem;
 }
 
 .banner-box .arrow.arrow-right {
-  right: 3.5rem;
+  right: 3.8rem;
 }
 </style>

@@ -111,7 +111,7 @@ export default {
   left: 25%;
   z-index: 1000;
   box-shadow: 0 0 0.3125rem #ccc;
-  border-radius: 5px;
+  border-radius: .3125rem;
   overflow: auto;
 }
 
@@ -124,8 +124,8 @@ export default {
 }
 
 .searchTipWrap .hotList li {
-  font-size: 14px;
-  padding: 2px 15px;
+  font-size: .875rem;
+  padding: .125rem .9375rem;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -133,15 +133,15 @@ export default {
 }
 
 .searchTipWrap .hotList li:first-child {
-  font-size: 15px;
+  font-size: .9375rem;
   color: rgba(7, 2, 2, 0.5);
-  margin-bottom: -18px;
-  margin-top: -8px;
+  margin-bottom: -1.125rem;
+  margin-top: -0.5rem;
 }
 
 .searchTipWrap .hotList li:not(.hot) span {
-  margin-right: 25px;
-  font-size: 18px;
+  margin-right: 1.5625rem;
+  font-size: 1.125rem;
   color: rgba(7, 2, 2, 0.4);
   display: inline-block;
   width: 3%;
@@ -165,13 +165,13 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   position: relative;
-  top: -10px;
+  top: -0.625rem;
   position: relative;
 }
 
 .searchTipWrap .hotList li:not(.hot) .word .score {
   color: rgba(0, 0, 0, 0.4);
-  font-size: 12px;
+  font-size: .75rem;
 }
 
 .searchTipWrap .hotList li:not(.hot) .word p {
@@ -187,17 +187,17 @@ export default {
 
 .searchTipWrap .hotList li:not(.hot) .word p:first-child i {
   color: red;
-  margin-right: 5px;
-  font-size: 12px;
+  margin-right: .3125rem;
+  font-size: .75rem;
 }
 
 .searchTipWrap .hotList li .word p:last-child {
   color: rgba(7, 2, 2, 0.4);
-  font-size: 12px;
+  font-size: .75rem;
 }
 
 .searchTipWrap .hotList li:not(.hot) p:last-child {
-  margin: -35px 0;
+  margin: -2.1875rem 0;
 }
 
 .searchTipWrap .hotList li:not(.hot):hover {
@@ -206,16 +206,16 @@ export default {
 
 /*查找榜 */
 .searchTipWrap .searchList .result {
-  font-size: 14px;
-  padding: 2px 15px;
+  font-size: .875rem;
+  padding: .125rem .9375rem;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  font-size: 15px;
+  font-size: .9375rem;
   color: rgba(7, 2, 2, 0.5);
-  margin-bottom: -18px;
-  margin-top: -8px;
+  margin-bottom: -1.125rem;
+  margin-top: -0.5rem;
 }
 
 .searchTipWrap .searchList .result:hover {
@@ -223,17 +223,17 @@ export default {
 }
 
 .searchList .result i {
-  font-size: 12px;
-  margin-left: 3px;
+  font-size: .75rem;
+  margin-left: .1875rem;
   transform: scale(0.8);
 }
 
 .searchList ul li {
-  font-size: 14px;
-  padding: 0 15px;
+  font-size: .875rem;
+  padding: 0 .9375rem;
   width: 100%;
-  height: 30px;
-  line-height: 30px;
+  height: 1.875rem;
+  line-height: 1.875rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -252,6 +252,6 @@ export default {
 }
 
 .searchList ul li:not(.title) {
-  padding-left: 30px;
+  padding-left: 1.875rem;
 }
 </style>

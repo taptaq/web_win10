@@ -9,7 +9,7 @@ export default {
         isPlay: false, //播放状态
         curMusicIndex: -1, //当前播放音乐的索引
         isMusicLoad: false, //音乐是否在加载
-        createdMusicList: [], // 用户创建的歌单,
+        createdMusicList: [], // 用户创建的歌单
         curMusicMsg:{}   //当前音乐的详细信息
     },
     mutations: {
@@ -30,7 +30,7 @@ export default {
                 state.musicListId = payload.musicListId;
                 state.curMusicIndex = -1;
             }
-            // 歌单id没有变化则对歌单进行深拷贝再赋值 直接赋值是浅拷贝
+            // 歌单id没有变化则对歌单进行深拷贝再赋值
             // 歌单是固定的死数据，而vuex中的curMuiscList是动态的
             let curMuiscList = payload.curMuiscList.slice(0)
             state.curMuiscList = curMuiscList;

@@ -160,7 +160,7 @@ export default {
   width: 30%;
   height: 75%;
   background: #fff;
-  box-shadow: 0 0 8px #ccc;
+  box-shadow: 0 0 .5rem #ccc;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -169,32 +169,32 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border-radius: 5px;
+  border-radius: .3125rem;
 }
 
 .login_wrap .close {
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: .3125rem;
+  top: .3125rem;
   cursor: pointer;
 }
 
 .login_wrap .close i {
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .login_wrap .loginIcon {
   width: 100%;
-  height: 130px;
+  height: 8.125rem;
   position: relative;
   top: 50%;
   transform: translateY(-135%);
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
   text-align: center;
 }
 
 .login_wrap .loginIcon i {
-  font-size: 95px;
+  font-size: 5.9375rem;
   color: rgba(236, 65, 65, 0.8);
 }
 
@@ -220,7 +220,7 @@ export default {
 .login_wrap .sendVerify {
   position: absolute;
   right: 0;
-  top: 2px;
+  top: .125rem;
   width: 56%;
   height: 93%;
 }
@@ -231,7 +231,7 @@ export default {
 
 .login_wrap .el-form .autoLogin {
   position: relative;
-  left: -53px;
+  left: -3.3125rem;
 }
 
 .login_wrap .el-form .autoLogin .el-checkbox {
@@ -253,7 +253,7 @@ export default {
 
 .login_wrap .loginBtn {
   width: 70%;
-  font-size: 18px;
+  font-size: 1.125rem;
   background: rgb(236, 65, 65);
   outline: none;
   border: 0;

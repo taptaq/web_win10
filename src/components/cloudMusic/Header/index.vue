@@ -60,7 +60,6 @@
           <!--用户菜单弹出框-->
           <el-popover
             placement="bottom"
-            width="280"
             trigger="click"
             content
             popper-class="logoutWrap"
@@ -137,10 +136,13 @@
       </div>
       <span>|</span>
       <div class="closeSetting">
-        <i class="icon-0039 iconfont"></i>
+        <span @click="changeMobile">
+          <i class="icon-0039 iconfont"></i>
+        </span>
+
         <i class="icon-zuixiaohua iconfont"></i>
         <i class="icon-zuidahua iconfont"></i>
-        <i class="icon-guanbi iconfont" @click='closeCloudMusic'></i>
+        <i class="icon-guanbi iconfont" @click="closeCloudMusic"></i>
       </div>
     </div>
   </el-header>
@@ -192,7 +194,7 @@ export default {
     },
 
     // 防抖搜索(普通)
-    searchMsgDebounce: utils.debounce(function () {
+    searchMsgDebounce() {
       if (this.searchVal != "") {
         // 利用axios的并发请求
         this.$axios
@@ -218,7 +220,7 @@ export default {
             })
           );
       }
-    }, 800),
+    },
 
     // 详细搜索跳转到搜索结果页面
     detailSearch() {
@@ -227,6 +229,12 @@ export default {
         this.$store.commit("musicPage/changeShowIndex", false);
         this.$store.commit("musicPage/changeShowPersonal", false);
         this.$store.commit("musicPage/changeShowSearch", true);
+        this.$store.commit("musicPage/changeShowSongDetail", false);
+        this.$store.commit("musicPage/changeShowMoreComments", false);
+      } else {
+        this.$store.commit("musicPage/changeShowIndex", true);
+        this.$store.commit("musicPage/changeShowPersonal", false);
+        this.$store.commit("musicPage/changeShowSearch", false);
         this.$store.commit("musicPage/changeShowSongDetail", false);
         this.$store.commit("musicPage/changeShowMoreComments", false);
       }
@@ -284,11 +292,29 @@ export default {
       });
     },
 
-
-      //   关闭网易云应用
+    //   关闭网易云应用
     closeCloudMusic() {
       this.$store.commit("monitorApp/changMusicState", true);
-      this.$store.commit("opendApp/deleOpendApp", '5');
+      this.$store.commit("opendApp/deleOpendApp", "5");
+    },
+
+    // 变为移动端模式
+    changeMobile(e) {
+      // var width =
+      //   document.documentElement.clientWidth || document.body.clientWidth;
+      // if (width > 540) {
+      //   width = 540;
+      // }
+      // fontSize = width / 10;
+      let musicWrap =
+        e.target.parentNode.parentNode.parentNode.parentNode.parentNode
+          .parentNode;
+      musicWrap.style.width = 300 + "px";
+      // musicWrap.style.height=00+'px';
+      console.log(musicWrap.offsetWidth);
+      let fontSize = 15;
+      document.getElementsByTagName("html")[0].style["font-size"] =
+        fontSize + "px";
     },
   },
 };
@@ -302,6 +328,8 @@ export default {
   flex-direction: column;
   justify-content: space-evenly;
   cursor: pointer;
+  width: 17.5rem;
+  font-size: 0.75rem;
 }
 
 .logoutWrap .userMenu1 {
@@ -312,25 +340,25 @@ export default {
 }
 
 .logoutWrap .userMenu1 div {
-  width: 30%;
-  margin-bottom: 15px;
+  width: 4.4375rem;
+  margin-bottom: 0.9375rem;
 }
 
 .logoutWrap .userMenu1 div p:first-child {
   font-weight: 600;
-  font-size: 25px;
+  font-size: 1.5625rem;
 }
 
 .logoutWrap .userMenu1 div:last-child {
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 15px;
-  padding: 6px 15px;
-  line-height: 20px;
-  width: 96px;
+  border: 0.0625rem solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.9375rem;
+  padding: 0.375rem 0.9375rem;
+  line-height: 1.25rem;
+  width: 6rem;
 }
 
 .logoutWrap .userMenu1 div:last-child span {
-  margin-left: 5px;
+  margin-left: 0.3125rem;
 }
 
 .logoutWrap .userMenu1 div:last-child:hover,
@@ -341,16 +369,16 @@ export default {
 }
 
 .logoutWrap .userMenu2 {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 0 -12px;
+  margin: 0 -0.75rem;
   position: relative;
 }
 
 .logoutWrap .userMenu2 .level {
   position: absolute;
-  right: 29px;
-  top: 57px;
+  right: 1.8125rem;
+  top: 3.5625rem;
   color: rgba(0, 0, 0, 0.3);
   font-weight: 700;
 }
@@ -358,39 +386,39 @@ export default {
 .logoutWrap .userMenu2 div,
 .logoutWrap .userMenu3 div,
 .logoutWrap .userMenu4 {
-  padding: 8px 20px;
-  padding-right: 2px;
+  padding: 0.5rem 1.25rem;
+  padding-right: 0.125rem;
 }
 
 .logoutWrap .userMenu2 div i,
 .logoutWrap .userMenu3 div i,
 .logoutWrap .userMenu4 i {
-  font-size: 20px;
-  margin-right: 10px;
+  font-size: 1.25rem;
+  margin-right: 0.625rem;
 }
 
 .logoutWrap .userMenu2 div i:last-child,
 .logoutWrap .userMenu3 div i:last-child {
   float: right;
-  font-size: 12px;
-  margin-top: 7px;
+  font-size: 0.75rem;
+  margin-top: 0.4375rem;
 }
 
 .logoutWrap .userMenu2 div span,
 .logoutWrap .userMenu3 div span,
 .logoutWrap .userMenu4 span {
   position: relative;
-  top: -2px;
+  top: -0.125rem;
 }
 
 .logoutWrap .userMenu3 {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 0 -12px;
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.1);
+  margin: 0 -0.75rem;
 }
 
 .logoutWrap .userMenu4 {
-  margin-left: -12px;
-  margin-right: -12px;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
 }
 </style>
 
