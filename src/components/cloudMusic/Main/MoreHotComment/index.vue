@@ -74,7 +74,7 @@ export default {
       let timestamp = Date.parse(new Date());
 
       let res = await this.$axios.get(
-        `/api/comment/hot?id=${id}&offset=${(this.count - 1) * 20}&type=0`
+        `${process.env.VUE_APP_BASE_API}/comment/hot?id=${id}&offset=${(this.count - 1) * 20}&type=0`
       );
         if (res.data.code !== 200) {
           this.$message.error("获取评论失败,请稍后重试!");

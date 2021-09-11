@@ -227,7 +227,7 @@ export default {
       // 音乐加载中
       this.$store.commit("musicPlay/changeMusicLoad", false);
 
-      this.$axios.get(`/api/song/url?id=${id}`).then((res) => {
+      this.$axios.get(`${process.env.VUE_APP_BASE_API}/song/url?id=${id}`).then((res) => {
         this.musicUrl = res.data.data[0].url;
         // 没有对应的url资源
         if (this.musicUrl == null) {
@@ -268,7 +268,7 @@ export default {
       var timeStamp = Date.parse(new Date());
       this.$axios
         .get(
-          `/api/likelist?uid=${JSON.parse(
+          `${process.env.VUE_APP_BASE_API}/likelist?uid=${JSON.parse(
             localStorage.getItem("userId")
           )}&timeStamp=${timeStamp}`
         )

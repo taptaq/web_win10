@@ -7,30 +7,35 @@
       <i class="icon-login_phone iconfont"></i>
       <img src="@/assets/loginIcon.png" alt />
     </div>
-    <el-form ref="form" :model="form" label-width="80px">
+    <!--手机密码登录-->
+    <el-form ref="form" :model="form" label-width="80px" v-if="passwordLogin">
       <el-form-item label="手机号码">
         <el-input v-model="form.phoneNumber"></el-input>
       </el-form-item>
       <el-form-item label="密码">
         <el-input type="password" v-model="form.password"></el-input>
       </el-form-item>
-      <!--
-      <el-form-item label="验证码" class="verify">
-        <el-input v-model="form.verify"></el-input>
-        <el-button type="primary" @click="sendVerify" class="sendVerify" ref="verifyBtn">发送验证码</el-button>
-      </el-form-item>
-      -->
-
-      <el-form-item class="autoLogin">
-        <el-checkbox-group v-model="form.type">
-          <el-checkbox label="自动登录" name="type"></el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
-
       <el-form-item>
-        <el-button type="primary" @click="login" class="loginBtn">登录</el-button>
+        <el-button type="primary" @click="verifyPassword" class="loginBtn">登录</el-button>
       </el-form-item>
     </el-form>
+
+    <!--手机验证码登录-->
+    <el-form ref="form" :model="form" label-width="80px" v-else-if="!passwordLogin">
+      <el-form-item label="手机号码">
+        <el-input v-model="form.phoneNumber"></el-input>
+      </el-form-item>
+
+      <el-form-item label="验证码" class="verify">
+        <el-input v-model="form.captcha"></el-input>
+        <el-button type="primary" @click="sendVerify" class="sendVerify" ref="verifyBtn">发送验证码</el-button>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="verifyCaptcha" class="loginBtn">登录</el-button>
+      </el-form-item>
+    </el-form>
+
+    <div class="changLoginMethod" @click="changLoginMethod">切换到{{passwordLogin ? '验证码':'密码'}}登录>></div>
   </div>
 </template>
 
@@ -41,11 +46,12 @@ export default {
     return {
       form: {
         phoneNumber: "",
-        verify: "",
+        captcha: "",
         type: [],
         password: "",
       },
       timer: null,
+      passwordLogin: true,
     };
   },
   methods: {
@@ -57,7 +63,7 @@ export default {
     // 发送验证码
     sendVerify() {
       this.$axios
-        .get("https://cloud-music-liard.vercel.app/captcha/sent", {
+        .get(`${process.env.VUE_APP_BASE_API}/captcha/sent`, {
           params: {
             phone: this.form.phoneNumber,
           },
@@ -78,11 +84,35 @@ export default {
         });
     },
 
+    // 校验验证码
+    verifyCaptcha() {
+      let timestamp = Date.parse(new Date());
+      this.$axios
+        .get(
+          `${process.env.VUE_APP_BASE_API}/captcha/verify?phone=${this.form.phoneNumber}&captcha=${this.form.captcha}&timestamp=${timestamp}`
+        )
+        .then((res) => {
+          // console.log(res);
+          if (res.data.code === 200) {
+            this.$message({
+              message: "登录成功!",
+              type: "success",
+            });
+            window.localStorage.setItem("isLogin", true);
+            this.getUserMsg();
+          }
+        });
+
+      // 清空输入框的内容
+      this.form.phoneNumber = "";
+      this.form.captcha = "";
+    },
+
     //   手机登录请求
-    async login() {
+    async verifyPassword() {
       let timestamp = Date.parse(new Date());
       let result = await this.$axios.get(
-        `/api/login/cellphone?phone=${this.form.phoneNumber}&password=${this.form.password}&timestamp=${timestamp}`
+        `${process.env.VUE_APP_BASE_API}/login/cellphone?phone=${this.form.phoneNumber}&password=${this.form.password}&timestamp=${timestamp}`
       );
       // 登录成功
       if (result.data.code == 200) {
@@ -116,28 +146,30 @@ export default {
       this.$store.commit("musicLogin/changeLoginWrapState", false);
       let timestamp = Date.parse(new Date());
       let result = await this.$axios.get(
-        `/api/user/account?timestamp=${timestamp}`
+        `${process.env.VUE_APP_BASE_API}/user/account?timestamp=${timestamp}`
       );
-      if (result.status === 200) {
-        // console.log(result);
-        let userProfile = result.data.profile;
-        // 将请求到的用户id存入localstorage
-        window.localStorage.setItem("userId", userProfile.userId);
-        window.localStorage.setItem("username", userProfile.nickname);
-        window.localStorage.setItem("avatarImg", userProfile.avatarUrl);
+      // if (result.status === 200) {
+      // console.log(result);
+      let userProfile = result.data.profile;
+      // 将请求到的用户id存入localstorage
+      window.localStorage.setItem("userId", userProfile.userId);
+      window.localStorage.setItem("username", userProfile.nickname);
+      window.localStorage.setItem("avatarImg", userProfile.avatarUrl);
 
-        this.$store.commit("musicLogin/changeUserName", userProfile.nickname);
-        this.$store.commit("musicLogin/changeAvatarImg", userProfile.avatarUrl);
+      this.$store.commit("musicLogin/changeUserName", userProfile.nickname);
+      this.$store.commit("musicLogin/changeAvatarImg", userProfile.avatarUrl);
 
-        this.getUserDetailMsg();
-      }
+      this.getUserDetailMsg();
+      // }
     },
 
     // 获取用户详情信息
     async getUserDetailMsg() {
       let timestamp = Date.parse(new Date());
       let result = await this.$axios.get(
-        `/api/user/detail?uid=${window.localStorage.getItem(
+        `${
+          process.env.VUE_APP_BASE_API
+        }/user/detail?uid=${window.localStorage.getItem(
           "userId"
         )}&timestamp=${timestamp}`
       );
@@ -149,7 +181,12 @@ export default {
         );
       }
       // 刷新一下页面（折腾点）
-      window.location.reload();
+      // window.location.reload();
+    },
+
+    //切换登录方式
+    changLoginMethod() {
+      this.passwordLogin = !this.passwordLogin;
     },
   },
 };
@@ -157,26 +194,27 @@ export default {
 
 <style scoped>
 .login_wrap {
-  width: 30%;
-  height: 75%;
+  width: 17.375rem;
+  height: 24rem;
   background: #fff;
-  box-shadow: 0 0 .5rem #ccc;
+  box-shadow: 0 0 0.5rem #ccc;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.95);
   z-index: 100;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border-radius: .3125rem;
+  border-radius: 0.3125rem;
 }
 
 .login_wrap .close {
   position: absolute;
-  right: .3125rem;
-  top: .3125rem;
+  right: 0.3125rem;
+  top: 0.3125rem;
   cursor: pointer;
+  z-index: 1;
 }
 
 .login_wrap .close i {
@@ -220,7 +258,7 @@ export default {
 .login_wrap .sendVerify {
   position: absolute;
   right: 0;
-  top: .125rem;
+  top: 0.125rem;
   width: 56%;
   height: 93%;
 }
@@ -257,5 +295,19 @@ export default {
   background: rgb(236, 65, 65);
   outline: none;
   border: 0;
+}
+
+.changLoginMethod {
+  color: slateblue;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 12px;
+  cursor: pointer;
+  position: relative;
+  left: 8px;
+}
+
+.changLoginMethod:hover {
+  color: blue;
 }
 </style>

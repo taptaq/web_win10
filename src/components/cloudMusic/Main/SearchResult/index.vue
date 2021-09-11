@@ -109,7 +109,7 @@ export default {
     // 获取最佳匹配
     getMultMath(val) {
       let res = this.$axios
-        .get(`/api/search/multimatch?keywords=${val}`)
+        .get(`${process.env.VUE_APP_BASE_API}/search/multimatch?keywords=${val}`)
         .then((res) => {
           this.multiMatch = res.data.result;
           // console.log(this.multiMatch);
@@ -121,7 +121,7 @@ export default {
       let offset = 100 * (this.currentPage - 1);
       this.$axios
         .get(
-          `/api/cloudsearch?keywords=${val}&type=1&limit=${this.limitCount}&offset=${offset}`
+          `${process.env.VUE_APP_BASE_API}/cloudsearch?keywords=${val}&type=1&limit=${this.limitCount}&offset=${offset}`
         ) //单曲
         .then((res) => {
           // console.log(res.data.result);
@@ -166,7 +166,7 @@ export default {
         // 判断点击的是否为喜欢按钮
         if (!dislike) {
           let like = true;
-          this.$axios.get(`/api/like?id=${row.id}&like=${like}`).then((res) => {
+          this.$axios.get(`${process.env.VUE_APP_BASE_API}/like?id=${row.id}&like=${like}`).then((res) => {
             if (res.status === 200) {
               cell.children[0].children[0].classList.add("notShow");
               cell.children[0].children[1].classList.remove("notShow");
@@ -174,7 +174,7 @@ export default {
           });
         } else if (!like) {
           let like = false;
-          this.$axios.get(`/api/like?id=${row.id}&like=${like}`).then((res) => {
+          this.$axios.get(`${process.env.VUE_APP_BASE_API}/like?id=${row.id}&like=${like}`).then((res) => {
             if (res.status === 200) {
               cell.children[0].children[1].classList.add("notShow");
               cell.children[0].children[0].classList.remove("notShow");

@@ -46,9 +46,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   position: fixed;
-  left: 13.5rem;
-  top: 4rem;
-  width: 45rem;
+  left: 12.5rem;
+  top: 3.72rem;
+  width: 47.8rem;
   height: 3.4375rem;
   line-height: 2.375rem;
   padding-left: 1.25rem;

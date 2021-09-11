@@ -90,10 +90,10 @@ export default {
         // 利用axios的并发请求
         this.$axios
           .all([
-            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=1`), //单曲
-            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=10`), //专辑
-            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=100`), //歌手
-            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=1000`), //歌单
+            this.$axios.get(`${process.env.VUE_APP_BASE_API}/search?keywords=${this.searchVal}&type=1`), //单曲
+            this.$axios.get(`${process.env.VUE_APP_BASE_API}/search?keywords=${this.searchVal}&type=10`), //专辑
+            this.$axios.get(`${process.env.VUE_APP_BASE_API}/search?keywords=${this.searchVal}&type=100`), //歌手
+            this.$axios.get(`${process.env.VUE_APP_BASE_API}/search?keywords=${this.searchVal}&type=1000`), //歌单
           ])
 
           .then(

@@ -125,7 +125,7 @@ export default {
   mounted() {
     // 获取推荐歌单的数据
     this.$axios
-      .get("/api/personalized?limit=10")
+      .get(`${process.env.VUE_APP_BASE_API}/personalized?limit=10`)
       .then((res) => {
         if (res.data.code === 200) {
           // console.log(res.data.result);
@@ -135,7 +135,7 @@ export default {
 
     // 获取独家放送的数据
     this.$axios
-      .get("/api/personalized/privatecontent")
+      .get(`${process.env.VUE_APP_BASE_API}/personalized/privatecontent`)
       .then((res) => {
         if (res.data.code === 200) {
           // console.log(res.data.result);
@@ -145,7 +145,7 @@ export default {
 
     // 获取最新音乐的数据
     this.$axios
-      .get("/api/personalized/newsong?limit=12")
+      .get(`${process.env.VUE_APP_BASE_API}/personalized/newsong?limit=12`)
       .then((res) => {
         if (res.data.code === 200) {
           // console.log(res.data.result);
@@ -155,7 +155,7 @@ export default {
 
     // 获取推荐MV的数据
     this.$axios
-      .get("/api/personalized/mv")
+      .get(`${process.env.VUE_APP_BASE_API}/personalized/mv`)
       .then((res) => {
         if (res.data.code === 200) {
           // console.log(res.data.result);

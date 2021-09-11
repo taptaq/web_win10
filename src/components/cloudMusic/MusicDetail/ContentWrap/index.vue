@@ -303,7 +303,7 @@ export default {
       }
 
       let res = await this.$axios.get(
-        `/api/comment/music?id=${id}&offset=${
+        `${process.env.VUE_APP_BASE_API}/comment/music?id=${id}&offset=${
           (this.currentPage - 1) * 20
         }&timestamp=${timestamp}`
       );
@@ -398,6 +398,7 @@ export default {
         this.sendContent != "" &&
         this.sendContent != null
       ) {
+        // 把弹幕文字增加到arr的最前面
         this.arr.unshift({
           content: this.sendContent,
           isSelf: true,

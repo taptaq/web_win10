@@ -199,10 +199,10 @@ export default {
         // 利用axios的并发请求
         this.$axios
           .all([
-            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=1`), //单曲
-            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=10`), //专辑
-            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=100`), //歌手
-            this.$axios.get(`/api/search?keywords=${this.searchVal}&type=1000`), //歌单
+            this.$axios.get(`${process.env.VUE_APP_BASE_API}/search?keywords=${this.searchVal}&type=1`), //单曲
+            this.$axios.get(`${process.env.VUE_APP_BASE_API}/search?keywords=${this.searchVal}&type=10`), //专辑
+            this.$axios.get(`${process.env.VUE_APP_BASE_API}/search?keywords=${this.searchVal}&type=100`), //歌手
+            this.$axios.get(`${process.env.VUE_APP_BASE_API}/search?keywords=${this.searchVal}&type=1000`), //歌单
           ])
 
           .then(
@@ -242,9 +242,9 @@ export default {
 
     // 签到
     async signIn() {
-      let result = await this.$axios.get("/api/yunbei/sign");
+      let result = await this.$axios.get(`${process.env.VUE_APP_BASE_API}/yunbei/sign`);
       if (result.status === 200) {
-        let res = await this.$axios.get("/api/yunbei/today");
+        let res = await this.$axios.get(`${process.env.VUE_APP_BASE_API}/yunbei/today`);
         if (res.status === 200) {
           this.$refs.sign.innerText = "已签到";
           this.$refs.signIcon.style.fontSize = "0";
@@ -274,7 +274,7 @@ export default {
 
     // 登出
     logout() {
-      this.$axios.get("/api/logout").then((res) => {
+      this.$axios.get(`${process.env.VUE_APP_BASE_API}/logout`).then((res) => {
         if (res.status === 200) {
           this.$message({
             message: "退出成功!",

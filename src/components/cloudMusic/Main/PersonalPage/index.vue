@@ -117,7 +117,7 @@ export default {
     //   获取用户的歌单
     async getUserSongList() {
       let result = await this.$axios.get(
-        `/api/user/playlist?uid=${window.localStorage.getItem("userId")}`
+        `${process.env.VUE_APP_BASE_API}/user/playlist?uid=${window.localStorage.getItem("userId")}`
       );
       if (result.status === 200) {
         // console.log(result.data);

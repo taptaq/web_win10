@@ -30,7 +30,7 @@ export default {
   },
   mounted() {
     this.$axios
-      .get("/api/banner?type=0")
+      .get(`${process.env.VUE_APP_BASE_API}/banner?type=0`)
       .then((res) => {
         // console.log(res.data.banners);
         if (res.data.code === 200) {

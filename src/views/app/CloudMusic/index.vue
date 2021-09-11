@@ -114,7 +114,7 @@ export default {
 
     // 请求歌词数据
     getLyric(id) {
-      this.$axios.get(`/api/lyric?id=${id}`).then((res) => {
+      this.$axios.get(`${process.env.VUE_APP_BASE_API}/lyric?id=${id}`).then((res) => {
         if (res.status === 200) {
           let lyricArr = res.data.lrc.lyric.split("\n");
           let arr = [];
@@ -146,7 +146,7 @@ export default {
       // 当页数为第一页时，请求10条热门数据
       if (this.commentMsg.curCommentPage === 1) {
         let res = await this.$axios.get(
-          `/api/comment/hot?id=${id}&limit=10&type=0&timestamp=${timestamp}`
+          `${process.env.VUE_APP_BASE_API}/comment/hot?id=${id}&limit=10&type=0&timestamp=${timestamp}`
         );
         if (res.data.code != 200) {
           this.$message.error("获取热门评论失败,请稍后重试!");
@@ -157,7 +157,7 @@ export default {
 
       // 获取普通评论
       let res = await this.$axios.get(
-        `/api/comment/music?id=${id}&offset=${
+        `${process.env.VUE_APP_BASE_API}/comment/music?id=${id}&offset=${
           (this.commentMsg.curCommentPage - 1) * 20
         }&timestamp=${timestamp}`
       );

@@ -91,7 +91,7 @@ export default {
   mounted() {
     // console.log(this.searchSongsData);
     //   获取热搜榜的数据
-    this.$axios.get("/api/search/hot/detail").then((res) => {
+    this.$axios.get(`${process.env.VUE_APP_BASE_API}/search/hot/detail`).then((res) => {
       if (res.status === 200) {
         // console.log(res.data.data);
         this.hotSearch = res.data.data;
